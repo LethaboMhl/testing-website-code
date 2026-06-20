@@ -1,1 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South Africa Map - Interactive Provinces</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .title span {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        .sa-map-container {
+            position: relative;
+            display: inline-block;
+            max-width: 600px;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .sa-map-container img {
+            width: 100%;
+            display: block;
+            pointer-events: none;
+        }
+
+        /* Shared province styles */
+        .province {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        /* North West Province */
+        .nw {
+            top: 42%;
+            left: 32%;
+            width: 18%;
+            height: 14%;
+            background: rgba(255, 107, 53, 0.4);
+            animation: pulse-orange 2s infinite;
+            border: 2px solid rgba(255, 107, 53, 0.6);
+        }
+
+        /* Mpumalanga Province */
+        .mp {
+            top: 25%;
+            left: 67%;
+            width: 15%;
+            height: 18%;
+            background: rgba(0, 150, 255, 0.4);
+            animation: pulse-blue 2s infinite 1s;
+            border: 2px solid rgba(0, 150, 255, 0.6);
+        }
+
+        /* Pulsing animations - different colors for each province */
+        @keyframes pulse-orange {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
+            }
+            70% {
+                transform: scale(1.15);
+                box-shadow: 0 0 0 20px rgba(255, 107, 53, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+            }
+        }
+
+        @keyframes pulse-blue {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 150, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.15);
+                box-shadow: 0 0 0 20px rgba(0, 150, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 150, 255, 0);
+            }
+        }
+
+        /* Hover effects - pause animation and highlight */
+        .province:hover {
+            animation-play-state: paused;
+            transform: scale(1.3) !important;
+            z-index: 10;
+            opacity: 0.9;
+            border-width: 3px;
+        }
+
+        /* Active/clicked state */
+        .province.active {
+            animation-play-state: paused;
+            transform: scale(1.2);
+            border-color: gold !important;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            z-index: 5;
+        }
+
+        /* Province labels (appear on hover) */
+        .province::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateX(-50%) translateY(5px);
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .province:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Small tooltip triangle */
+        .province::before {
+            content: '';
+            position: absolute;
+            bottom: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(0, 0, 0, 0.85);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .province:hover::before {
+            opacity: 1;
+        }
+
+        /* Click feedback */
+        .province:active:not(.active) {
+            transform: scale(0.9);
+            transition: transform 0.05s;
+        }
+
+        /* Info panel */
+        .info-panel {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .info-panel p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .info-panel .highlight {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .info-panel .province-name {
+            color: #ff6b35;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            .title {
+                font-size: 18px;
+            }
+
+            .province::after {
+                font-size: 10px;
+                padding: 2px 8px;
+                bottom: calc(100% + 8px);
+            }
+
+            .province:hover {
+                transform: scale(1.2) !important;
+            }
+
+            .info-panel p {
+                font-size: 12px;
+            }
+        }
+
+        /* Optional: Disable animations on reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            .province {
+                animation: none !important;
+            }
+
+            .province::after {
+                transition: opacity 0.1s ease;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <span>🇿🇦</span> South Africa <span>Provinces</span>
+        </div>
+
+        <div class="sa-map-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/South_Africa_%E2%80%93_blank_map_with_provinces_colored_and_labels.svg/800px-South_Africa_%E2%80%93_blank_map_with_provinces_colored_and_labels.svg.png" 
+                 alt="South Africa Map">
+            
+            <!-- North West Province -->
+            <div class="province nw" data-name="North West"></div>
+            
+            <!-- Mpumalanga Province -->
+            <div class="province mp" data-name="Mpumalanga"></div>
+        </div>
+
+        <div class="info-panel" id="infoPanel">
+            <p>👆 <span class="highlight">Hover</span> over a province or <span class="highlight">click</span> to select</p>
+        </div>
+    </div>
+
+    <script>
+        // Get all province elements
+        const provinces = document.querySelectorAll('.province');
+        const infoPanel = document.getElementById('infoPanel');
+
+        // Province data with additional info
+        const provinceData = {
+            'North West': {
+                capital: 'Mahikeng',
+                population: '3.7 million',
+                color: '#ff6b35'
+            },
+            'Mpumalanga': {
+                capital: 'Mbombela',
+                population: '4.6 million',
+                color: '#0096ff'
+            }
+        };
+
+        // Click handler for provinces
+        provinces.forEach(province => {
+            province.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // Remove active class from all provinces
+                provinces.forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked province
+                this.classList.add('active');
+                
+                // Get province name
+                const name = this.dataset.name;
+                const data = provinceData[name];
+                
+                // Update info panel
+                if (data) {
+                    infoPanel.innerHTML = `
+                        <p style="text-align: center;">
+                            <span style="color: ${data.color}; font-size: 20px; font-weight: 700;">${name}</span>
+                            <br>
+                            <span style="color: rgba(255,255,255,0.6); font-size: 13px;">
+                                Capital: ${data.capital} | Population: ${data.population}
+                            </span>
+                        </p>
+                    `;
+                }
+            });
+
+            // Hover handler to show preview info
+            province.addEventListener('mouseenter', function() {
+                const name = this.dataset.name;
+                const data = provinceData[name];
+                
+                if (data && !this.classList.contains('active')) {
+                    infoPanel.innerHTML = `
+                        <p style="text-align: center; color: rgba(255,255,255,0.8);">
+                            <span style="color: ${data.color}; font-weight: 600;">${name}</span>
+                            <span style="color: rgba(255,255,255,0.4); margin: 0 8px;">•</span>
+                            Capital: ${data.capital}
+                            <span style="color: rgba(255,255,255,0.4); margin: 0 8px;">•</span>
+                            Population: ${data.population}
+                        </p>
+                    `;
+                }
+            });
+
+            // Reset info panel when mouse leaves (if not active)
+            province.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    infoPanel.innerHTML = `
+                        <p>👆 <span class="highlight">Hover</span> over a province or <span class="highlight">click</span> to select</p>
+                    `;
+                }
+            });
+        });
+
+        // Click on container to deselect
+        document.querySelector('.sa-map-container').addEventListener('click', function(e) {
+            if (e.target === this || e.target.tagName === 'IMG') {
+                provinces.forEach(p => p.classList.remove('active'));
+                infoPanel.innerHTML = `
+                    <p>👆 <span class="highlight">Hover</span> over a province or <span class="highlight">click</span> to select</p>
+                `;
+            }
+        });
+
+        // Keyboard accessibility
+        provinces.forEach(province => {
+            province.setAttribute('tabindex', '0');
+            province.setAttribute('role', 'button');
+            province.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+
+        console.log('🇿🇦 South Africa Map Interactive - Click provinces to learn more!');
+    </script>
+</body>
+</html>
