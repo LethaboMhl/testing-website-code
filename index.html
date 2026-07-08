@@ -14,7 +14,6 @@
     }
 
     body {
-      background: #f9f6f0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -22,6 +21,7 @@
       padding: 1.5rem;
       position: relative;
       transition: background-image 0.8s ease-in-out;
+      background-color: #1a1a1a;
     }
 
     /* Full page background */
@@ -36,7 +36,7 @@
       background-position: center;
       background-repeat: no-repeat;
       transition: background-image 0.8s ease-in-out;
-      z-index: -1;
+      z-index: 0;
       opacity: 0.85;
     }
 
@@ -48,29 +48,30 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.3);
-      z-index: -1;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
     }
 
     .restaurant-card {
       max-width: 900px;
       width: 100%;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(30, 30, 35, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-radius: 2.5rem 2.5rem 2rem 2rem;
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
       overflow: hidden;
       position: relative;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 1;
     }
 
     .hero {
       padding: 2rem 2rem 1rem 2rem;
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(20, 20, 25, 0.8);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      border-bottom: 1px solid rgba(238, 233, 224, 0.5);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       position: relative;
       z-index: 1;
     }
@@ -86,28 +87,28 @@
       font-size: 2rem;
       font-weight: 600;
       letter-spacing: -0.5px;
-      color: #2e241b;
+      color: #f5efe9;
     }
 
     .brand h1 i {
-      color: #c0392b;
+      color: #e67e22;
       margin-right: 8px;
     }
 
     .brand .tagline {
-      background: rgba(240, 235, 228, 0.9);
+      background: rgba(255, 255, 255, 0.08);
       padding: 0.4rem 1.2rem;
       border-radius: 40px;
-      color: #4d3e32;
+      color: #c4b5a6;
       font-weight: 500;
       font-size: 0.9rem;
       letter-spacing: 0.3px;
-      border: 1px solid #e3d9cf;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .hero p {
       margin-top: 0.6rem;
-      color: #6b5d50;
+      color: #b5a699;
       font-weight: 400;
       font-size: 1rem;
       letter-spacing: 0.2px;
@@ -115,7 +116,7 @@
 
     .hero p i {
       margin-right: 6px;
-      color: #b85c3a;
+      color: #e67e22;
     }
 
     .menu-slider-wrapper {
@@ -136,7 +137,7 @@
       width: 44px;
       height: 6px;
       border-radius: 12px;
-      background: rgba(217, 208, 198, 0.8);
+      background: rgba(255, 255, 255, 0.15);
       transition: all 0.25s ease;
       cursor: pointer;
       border: none;
@@ -144,9 +145,9 @@
     }
 
     .dot.active {
-      background: #b85c3a;
+      background: #e67e22;
       width: 60px;
-      box-shadow: 0 2px 6px rgba(184, 92, 58, 0.3);
+      box-shadow: 0 2px 6px rgba(230, 126, 34, 0.3);
     }
 
     .menu-scroll {
@@ -174,13 +175,13 @@
       flex: 0 0 100%;
       min-width: 100%;
       scroll-snap-align: start;
-      background: rgba(254, 252, 249, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      background: rgba(40, 40, 45, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-radius: 28px;
       padding: 1.8rem 1.8rem 2rem 1.8rem;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(241, 235, 228, 0.4);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -191,22 +192,22 @@
     }
 
     .menu-panel:hover {
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-      border-color: #e3d7cc;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 255, 255, 0.1);
     }
 
     .menu-panel .category {
       display: flex;
       align-items: center;
       gap: 12px;
-      border-bottom: 2px dashed #eee5db;
+      border-bottom: 2px dashed rgba(255, 255, 255, 0.08);
       padding-bottom: 0.9rem;
       margin-bottom: 1.4rem;
     }
 
     .menu-panel .category i {
       font-size: 2rem;
-      color: #b85c3a;
+      color: #e67e22;
       width: 2.4rem;
       text-align: center;
     }
@@ -214,18 +215,18 @@
     .menu-panel .category h2 {
       font-size: 1.7rem;
       font-weight: 600;
-      color: #2e241b;
+      color: #f5efe9;
       letter-spacing: -0.3px;
     }
 
     .menu-panel .category span {
       margin-left: auto;
-      background: #e7dfd6;
+      background: rgba(255, 255, 255, 0.08);
       padding: 0.2rem 0.9rem;
       border-radius: 40px;
       font-size: 0.75rem;
       font-weight: 600;
-      color: #4d3e32;
+      color: #c4b5a6;
     }
 
     .menu-item {
@@ -233,7 +234,7 @@
       justify-content: space-between;
       align-items: baseline;
       padding: 0.7rem 0;
-      border-bottom: 1px solid #f0e9e1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .menu-item:last-child {
@@ -248,32 +249,33 @@
 
     .item-name {
       font-weight: 600;
-      color: #2e241b;
+      color: #f5efe9;
       font-size: 1.05rem;
     }
 
     .item-desc {
       font-size: 0.8rem;
-      color: #7f6f60;
+      color: #a8998a;
       font-weight: 400;
       letter-spacing: 0.2px;
     }
 
     .item-price {
       font-weight: 600;
-      color: #b85c3a;
-      background: rgba(245, 238, 232, 0.8);
+      color: #e67e22;
+      background: rgba(230, 126, 34, 0.15);
       padding: 0.2rem 0.9rem;
       border-radius: 40px;
       font-size: 0.9rem;
       white-space: nowrap;
+      border: 1px solid rgba(230, 126, 34, 0.1);
     }
 
     .menu-panel .footnote {
       margin-top: 1.2rem;
       font-size: 0.8rem;
-      color: #9b8a7a;
-      border-top: 1px solid #ede5dc;
+      color: #8a7b6c;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
       padding-top: 1rem;
       text-align: center;
       letter-spacing: 0.2px;
@@ -284,7 +286,7 @@
       justify-content: center;
       align-items: center;
       gap: 6px;
-      color: rgba(183, 166, 150, 0.9);
+      color: rgba(183, 166, 150, 0.6);
       font-size: 0.75rem;
       margin-top: 0.2rem;
       letter-spacing: 0.5px;
@@ -292,7 +294,7 @@
 
     .drag-hint i {
       font-size: 0.9rem;
-      color: rgba(199, 183, 166, 0.9);
+      color: rgba(183, 166, 150, 0.4);
     }
 
     @media (max-width: 600px) {
@@ -360,15 +362,15 @@
     }
 
     .scroll-btn {
-      background: rgba(245, 239, 233, 0.9);
-      border: 1px solid #e3d7cc;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 40px;
       width: 38px;
       height: 38px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #4d3e32;
+      color: #c4b5a6;
       font-size: 1.1rem;
       transition: 0.15s;
       cursor: pointer;
@@ -376,13 +378,13 @@
     }
 
     .scroll-btn:hover {
-      background: #ece2d9;
-      border-color: #cbb9aa;
-      color: #2e241b;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.15);
+      color: #f5efe9;
     }
 
     .scroll-btn:active {
-      background: #dccfc2;
+      background: rgba(255, 255, 255, 0.05);
       transform: scale(0.94);
     }
 
@@ -490,11 +492,11 @@
       
       const panels = scrollContainer.querySelectorAll('.menu-panel');
 
-      // Background images for each menu
+      // Background images for each menu - updated with better images
       const bgImages = {
         'classic': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1920&q=80',
         'seafood': 'https://images.unsplash.com/photo-1548946526-f69e2424cf2d?w=1920&q=80',
-        'pasta': 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=1920&q=80',
+        'pasta': 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=1920&q=80',
         'dessert': 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1920&q=80'
       };
 
@@ -505,11 +507,6 @@
         if (panel) {
           const menuType = panel.dataset.menu;
           const bgUrl = bgImages[menuType] || defaultBg;
-          // Apply background to body::before using a style rule
-          pageBody.style.setProperty('--bg-image', `url(${bgUrl})`);
-          // Force the pseudo-element to update
-          pageBody.style.setProperty('background-image', `var(--bg-image)`);
-          // Use a more reliable method - update the body background directly
           pageBody.style.backgroundImage = `url(${bgUrl})`;
           pageBody.style.backgroundSize = 'cover';
           pageBody.style.backgroundPosition = 'center';
@@ -610,7 +607,6 @@
         }, 200);
       });
 
-      // Set initial background
       updateBackground(0);
     })();
   </script>
