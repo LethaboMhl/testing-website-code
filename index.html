@@ -29,12 +29,40 @@
       border-radius: 2.5rem 2.5rem 2rem 2rem;
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
       overflow: hidden;
+      position: relative;
+    }
+
+    /* Background overlay that changes with menu */
+    .bg-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transition: background-image 0.8s ease-in-out;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .bg-overlay::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.7);
     }
 
     .hero {
       padding: 2rem 2rem 1rem 2rem;
-      background: linear-gradient(145deg, #ffffff 0%, #faf7f2 100%);
+      background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(250,247,242,0.95) 100%);
       border-bottom: 1px solid #eee9e0;
+      position: relative;
+      z-index: 1;
     }
 
     .brand {
@@ -57,7 +85,7 @@
     }
 
     .brand .tagline {
-      background: #f0ebe4;
+      background: rgba(240, 235, 228, 0.9);
       padding: 0.4rem 1.2rem;
       border-radius: 40px;
       color: #4d3e32;
@@ -83,7 +111,8 @@
     .menu-slider-wrapper {
       position: relative;
       padding: 1.5rem 2rem 2rem 2rem;
-      background: #ffffff;
+      background: transparent;
+      z-index: 1;
     }
 
     .slider-indicators {
@@ -97,7 +126,7 @@
       width: 44px;
       height: 6px;
       border-radius: 12px;
-      background: #d9d0c6;
+      background: rgba(217, 208, 198, 0.8);
       transition: all 0.25s ease;
       cursor: pointer;
       border: none;
@@ -125,7 +154,6 @@
       cursor: grab;
       user-select: none;
       scroll-padding: 0;
-      /* REMOVE justify-content: center - this was the problem! */
     }
 
     .menu-scroll::-webkit-scrollbar {
@@ -136,22 +164,23 @@
       flex: 0 0 100%;
       min-width: 100%;
       scroll-snap-align: start;
-      background: #fefcf9;
+      background: rgba(254, 252, 249, 0.92);
+      backdrop-filter: blur(8px);
       border-radius: 28px;
       padding: 1.8rem 1.8rem 2rem 1.8rem;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
-      border: 1px solid #f1ebe4;
+      border: 1px solid rgba(241, 235, 228, 0.6);
       display: flex;
       flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Add padding/margin for visual separation */
     .menu-panel:not(:last-child) {
       margin-right: 1.5rem;
     }
 
     .menu-panel:hover {
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
       border-color: #e3d7cc;
     }
 
@@ -222,7 +251,7 @@
     .item-price {
       font-weight: 600;
       color: #b85c3a;
-      background: #f5eee8;
+      background: rgba(245, 238, 232, 0.8);
       padding: 0.2rem 0.9rem;
       border-radius: 40px;
       font-size: 0.9rem;
@@ -244,7 +273,7 @@
       justify-content: center;
       align-items: center;
       gap: 6px;
-      color: #b7a696;
+      color: rgba(183, 166, 150, 0.9);
       font-size: 0.75rem;
       margin-top: 0.2rem;
       letter-spacing: 0.5px;
@@ -252,7 +281,7 @@
 
     .drag-hint i {
       font-size: 0.9rem;
-      color: #c7b7a6;
+      color: rgba(199, 183, 166, 0.9);
     }
 
     @media (max-width: 600px) {
@@ -287,7 +316,6 @@
       }
     }
 
-    /* Desktop: still 1 panel, but with max-width and centered in the viewport */
     @media (min-width: 601px) {
       .menu-scroll {
         padding: 0.5rem 2rem 1.5rem 2rem;
@@ -321,7 +349,7 @@
     }
 
     .scroll-btn {
-      background: #f5efe9;
+      background: rgba(245, 239, 233, 0.9);
       border: 1px solid #e3d7cc;
       border-radius: 40px;
       width: 38px;
@@ -358,7 +386,10 @@
   </style>
 </head>
 <body>
-  <div class="restaurant-card">
+  <div class="restaurant-card" id="restaurantCard">
+    <!-- Background overlay that changes with menu -->
+    <div class="bg-overlay" id="bgOverlay"></div>
+
     <div class="hero">
       <div class="brand">
         <h1><i class="fas fa-utensils"></i> Oliva</h1>
@@ -376,8 +407,8 @@
       </div>
 
       <div class="menu-scroll" id="menuScroll">
-        <!-- panel 1: classic -->
-        <div class="menu-panel" data-menu="classic">
+        <!-- panel 1: classic - Italian/pizza background -->
+        <div class="menu-panel" data-menu="classic" data-bg="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80">
           <div class="category">
             <i class="fas fa-pizza-slice"></i>
             <h2>Classic</h2>
@@ -390,8 +421,8 @@
           <div class="footnote"><i class="far fa-clock"></i> available all day</div>
         </div>
 
-        <!-- panel 2: seafood -->
-        <div class="menu-panel" data-menu="seafood">
+        <!-- panel 2: seafood - ocean/seafood background -->
+        <div class="menu-panel" data-menu="seafood" data-bg="https://images.unsplash.com/photo-1548946526-f69e2424cf2d?w=1200&q=80">
           <div class="category">
             <i class="fas fa-fish"></i>
             <h2>Seafood</h2>
@@ -404,8 +435,8 @@
           <div class="footnote"><i class="fas fa-star"></i> chef's special</div>
         </div>
 
-        <!-- panel 3: pasta & risotto -->
-        <div class="menu-panel" data-menu="pasta">
+        <!-- panel 3: pasta & risotto - pasta/Italian background -->
+        <div class="menu-panel" data-menu="pasta" data-bg="https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=1200&q=80">
           <div class="category">
             <i class="fas fa-utensil-spoon"></i>
             <h2>Pasta</h2>
@@ -418,8 +449,8 @@
           <div class="footnote"><i class="fas fa-leaf"></i> vegetarian options</div>
         </div>
 
-        <!-- panel 4: desserts & drinks -->
-        <div class="menu-panel" data-menu="dessert">
+        <!-- panel 4: desserts & drinks - dessert/coffee background -->
+        <div class="menu-panel" data-menu="dessert" data-bg="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1200&q=80">
           <div class="category">
             <i class="fas fa-wine-glass-alt"></i>
             <h2>Dolce</h2>
@@ -451,8 +482,30 @@
       const dots = document.querySelectorAll('.dot');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
+      const bgOverlay = document.getElementById('bgOverlay');
       
       const panels = scrollContainer.querySelectorAll('.menu-panel');
+
+      // Background images for each menu
+      const bgImages = {
+        'classic': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80',
+        'seafood': 'https://images.unsplash.com/photo-1548946526-f69e2424cf2d?w=1200&q=80',
+        'pasta': 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=1200&q=80',
+        'dessert': 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1200&q=80'
+      };
+
+      // Default fallback background
+      const defaultBg = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80';
+
+      // Function to update background based on active menu
+      function updateBackground(activeIndex) {
+        const panel = panels[activeIndex];
+        if (panel) {
+          const menuType = panel.dataset.menu;
+          const bgUrl = bgImages[menuType] || defaultBg;
+          bgOverlay.style.backgroundImage = `url(${bgUrl})`;
+        }
+      }
 
       function updateActiveDot() {
         const scrollLeft = scrollContainer.scrollLeft;
@@ -473,6 +526,9 @@
         dots.forEach((dot, i) => {
           dot.classList.toggle('active', i === activeIndex);
         });
+
+        // Update background
+        updateBackground(activeIndex);
       }
 
       let scrollTimeout;
@@ -532,6 +588,10 @@
       // Reset on load
       window.addEventListener('load', function() {
         setTimeout(resetToFirst, 100);
+        // Set initial background
+        setTimeout(() => {
+          updateBackground(0);
+        }, 50);
       });
 
       setTimeout(resetToFirst, 50);
@@ -543,6 +603,9 @@
           updateActiveDot();
         }, 200);
       });
+
+      // Set initial background
+      updateBackground(0);
     })();
   </script>
 </body>
