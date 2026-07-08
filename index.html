@@ -24,7 +24,7 @@
     }
 
     .restaurant-card {
-      max-width: 1100px;
+      max-width: 900px;
       width: 100%;
       background: white;
       border-radius: 2.5rem 2.5rem 2rem 2rem;
@@ -124,7 +124,7 @@
       scroll-snap-type: x mandatory;
       display: flex;
       flex-wrap: nowrap;
-      gap: 2rem;
+      gap: 1.5rem;
       padding: 0.5rem 0.25rem 1.5rem 0.25rem;
       /* hide scrollbar but keep functionality */
       scrollbar-width: none; /* Firefox */
@@ -137,11 +137,11 @@
       display: none; /* Chrome/Safari */
     }
 
-    /* each menu panel */
+    /* each menu panel — now always 1 visible at a time */
     .menu-panel {
-      flex: 0 0 85%;
-      max-width: 400px;
-      min-width: 280px;
+      flex: 0 0 100%;
+      max-width: 100%;
+      min-width: 0;
       scroll-snap-align: start;
       background: #fefcf9;
       border-radius: 28px;
@@ -259,7 +259,7 @@
       color: #c7b7a6;
     }
 
-    /* responsive */
+    /* responsive — always 1 card visible */
     @media (max-width: 600px) {
       .hero {
         padding: 1.5rem 1.2rem 0.8rem 1.2rem;
@@ -275,8 +275,6 @@
         padding: 1rem 1rem 1.5rem 1rem;
       }
       .menu-panel {
-        flex: 0 0 92%;
-        min-width: 240px;
         padding: 1.4rem;
       }
       .menu-panel .category h2 {
@@ -291,10 +289,25 @@
       }
     }
 
-    @media (min-width: 800px) {
+    /* desktop: keep 1 card visible, centered nicely */
+    @media (min-width: 601px) {
       .menu-panel {
-        flex: 0 0 45%;
-        max-width: 380px;
+        flex: 0 0 85%;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+      /* make scroll container center the card */
+      .menu-scroll {
+        justify-content: center;
+        gap: 2rem;
+        padding: 0.5rem 1rem 1.5rem 1rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .menu-panel {
+        flex: 0 0 70%;
+        max-width: 480px;
       }
     }
 
@@ -303,7 +316,7 @@
       cursor: grabbing;
     }
 
-    /* arrow buttons (optional but nice) */
+    /* arrow buttons */
     .scroll-nav {
       display: flex;
       justify-content: flex-end;
@@ -337,11 +350,6 @@
     .scroll-btn:active {
       background: #dccfc2;
       transform: scale(0.94);
-    }
-
-    .scroll-btn.disabled {
-      opacity: 0.25;
-      pointer-events: none;
     }
   </style>
 </head>
@@ -443,34 +451,27 @@
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       
-      // get all panels (for indicator sync)
       const panels = scrollContainer.querySelectorAll('.menu-panel');
 
-      // helper: update active dot based on scroll position
       function updateActiveDot() {
         const scrollLeft = scrollContainer.scrollLeft;
         const containerWidth = scrollContainer.clientWidth;
-        // find which panel is most visible
         let activeIndex = 0;
         let maxVisible = 0;
         panels.forEach((panel, index) => {
           const panelLeft = panel.offsetLeft - scrollContainer.offsetLeft;
           const panelRight = panelLeft + panel.offsetWidth;
-          // how much of panel is visible
           const visible = Math.min(panelRight, scrollLeft + containerWidth) - Math.max(panelLeft, scrollLeft);
           if (visible > maxVisible) {
             maxVisible = visible;
             activeIndex = index;
           }
         });
-        // update dots
         dots.forEach((dot, i) => {
           dot.classList.toggle('active', i === activeIndex);
         });
-        // scroll to panel (snap) – optional: but we keep it natural.
       }
 
-      // scroll event listener (throttled)
       let scrollTimeout;
       scrollContainer.addEventListener('scroll', function() {
         if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
@@ -479,33 +480,29 @@
         });
       });
 
-      // click on dot -> scroll to panel
       dots.forEach((dot, index) => {
         dot.addEventListener('click', function() {
           if (panels[index]) {
             panels[index].scrollIntoView({
               behavior: 'smooth',
               block: 'nearest',
-              inline: 'start'
+              inline: 'center'
             });
           }
         });
       });
 
-      // button navigation: previous / next
       function scrollToPanel(index) {
         if (index >= 0 && index < panels.length) {
           panels[index].scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
-            inline: 'start'
+            inline: 'center'
           });
-          // update dot after scroll (but scroll event will handle it)
         }
       }
 
       prevBtn.addEventListener('click', function() {
-        // get current active index
         let activeIndex = 0;
         dots.forEach((dot, i) => {
           if (dot.classList.contains('active')) activeIndex = i;
@@ -523,25 +520,14 @@
         scrollToPanel(newIndex);
       });
 
-      // initial update
       setTimeout(updateActiveDot, 80);
 
-      // also update on resize
       let resizeTimer;
       window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(updateActiveDot, 200);
       });
 
-      // (optional) prevent default drag on images / text
-      scrollContainer.addEventListener('mousedown', function(e) {
-        // avoid text selection while dragging
-        if (e.target.closest('.menu-panel')) {
-          // but we want to keep default drag behaviour for scroll
-        }
-      });
-
-      // after load, set active dot again
       window.addEventListener('load', function() {
         setTimeout(updateActiveDot, 150);
       });
