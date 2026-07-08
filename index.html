@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Sliding Menu · Restaurant</title>
-  <!-- Font Awesome Icons (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -30,7 +29,6 @@
       border-radius: 2.5rem 2.5rem 2rem 2rem;
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
       overflow: hidden;
-      transition: all 0.2s ease;
     }
 
     /* header / hero */
@@ -83,14 +81,14 @@
       color: #b85c3a;
     }
 
-    /* slide wrapper – the magic */
+    /* slider wrapper */
     .menu-slider-wrapper {
       position: relative;
       padding: 1.5rem 2rem 2rem 2rem;
       background: #ffffff;
     }
 
-    /* navigation dots / indicators (above cards) */
+    /* navigation dots */
     .slider-indicators {
       display: flex;
       justify-content: center;
@@ -115,7 +113,7 @@
       box-shadow: 0 2px 6px rgba(184, 92, 58, 0.3);
     }
 
-    /* the horizontal scroll container */
+    /* scroll container — each panel takes FULL width */
     .menu-scroll {
       overflow-x: auto;
       overflow-y: hidden;
@@ -124,36 +122,41 @@
       scroll-snap-type: x mandatory;
       display: flex;
       flex-wrap: nowrap;
+      /* NO gap here — panels sit side by side */
       gap: 0;
       padding: 0.5rem 0 1.5rem 0;
-      /* hide scrollbar but keep functionality */
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE/Edge */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
       cursor: grab;
       user-select: none;
     }
 
     .menu-scroll::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
+      display: none;
     }
 
-    /* each menu panel — exactly 1 visible at a time */
+    /* EACH PANEL TAKES 100% OF CONTAINER WIDTH */
     .menu-panel {
       flex: 0 0 100%;
+      min-width: 100%;
       scroll-snap-align: start;
       background: #fefcf9;
       border-radius: 28px;
       padding: 1.8rem 1.8rem 2rem 1.8rem;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
       border: 1px solid #f1ebe4;
-      transition: transform 0.2s ease, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
+      /* add a little margin so cards don't touch */
+      margin: 0 0.75rem;
     }
 
-    /* add some spacing between cards for visual clarity */
-    .menu-panel:not(:last-child) {
-      margin-right: 1.5rem;
+    /* first and last panel need less margin to stay centered */
+    .menu-panel:first-child {
+      margin-left: 0;
+    }
+    .menu-panel:last-child {
+      margin-right: 0;
     }
 
     .menu-panel:hover {
@@ -245,7 +248,6 @@
       letter-spacing: 0.2px;
     }
 
-    /* extra: drag hint */
     .drag-hint {
       display: flex;
       justify-content: center;
@@ -262,7 +264,7 @@
       color: #c7b7a6;
     }
 
-    /* responsive — always 1 card visible */
+    /* on smaller screens, keep 1 panel */
     @media (max-width: 600px) {
       .hero {
         padding: 1.5rem 1.2rem 0.8rem 1.2rem;
@@ -279,6 +281,7 @@
       }
       .menu-panel {
         padding: 1.4rem;
+        margin: 0 0.5rem;
       }
       .menu-panel .category h2 {
         font-size: 1.4rem;
@@ -290,40 +293,45 @@
       .dot.active {
         width: 44px;
       }
-      .menu-panel:not(:last-child) {
-        margin-right: 1rem;
+      .menu-panel:first-child {
+        margin-left: 0;
+      }
+      .menu-panel:last-child {
+        margin-right: 0;
       }
     }
 
-    /* desktop: still 1 card visible, but nicer width */
+    /* desktop: still 1 panel, but with max-width for nicer look */
     @media (min-width: 601px) {
       .menu-panel {
-        flex: 0 0 85%;
-        max-width: 420px;
+        flex: 0 0 100%;
+        max-width: 480px;
         margin: 0 auto;
       }
+      /* center the scroll container's items */
       .menu-scroll {
         justify-content: center;
         gap: 0;
         padding: 0.5rem 0 1.5rem 0;
       }
-      .menu-panel:not(:last-child) {
-        margin-right: 2rem;
+      /* when centered, we need to handle margins differently */
+      .menu-panel {
+        margin: 0 0.75rem;
       }
-      /* to keep snap working with centered items, we need to adjust the container */
-      .menu-scroll {
-        scroll-snap-type: x mandatory;
+      .menu-panel:first-child {
+        margin-left: 0;
+      }
+      .menu-panel:last-child {
+        margin-right: 0;
       }
     }
 
     @media (min-width: 1024px) {
       .menu-panel {
-        flex: 0 0 70%;
-        max-width: 480px;
+        max-width: 520px;
       }
     }
 
-    /* small extra: active state for grab */
     .menu-scroll:active {
       cursor: grabbing;
     }
@@ -362,6 +370,15 @@
     .scroll-btn:active {
       background: #dccfc2;
       transform: scale(0.94);
+    }
+
+    .controls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.2rem;
+      flex-wrap: wrap;
+      gap: 0.6rem;
     }
   </style>
 </head>
@@ -443,8 +460,8 @@
         </div>
       </div>
 
-      <!-- navigation buttons + drag hint -->
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.2rem; flex-wrap: wrap; gap: 0.6rem;">
+      <!-- controls -->
+      <div class="controls-row">
         <div class="drag-hint">
           <i class="fas fa-arrows-alt-h"></i> <span>slide · drag</span>
         </div>
@@ -470,6 +487,7 @@
         const containerWidth = scrollContainer.clientWidth;
         let activeIndex = 0;
         let maxVisible = 0;
+        
         panels.forEach((panel, index) => {
           const panelLeft = panel.offsetLeft - scrollContainer.offsetLeft;
           const panelRight = panelLeft + panel.offsetWidth;
@@ -479,6 +497,7 @@
             activeIndex = index;
           }
         });
+        
         dots.forEach((dot, i) => {
           dot.classList.toggle('active', i === activeIndex);
         });
