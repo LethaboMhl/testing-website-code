@@ -467,10 +467,7 @@
         dots.forEach((dot, i) => {
           dot.classList.toggle('active', i === activeIndex);
         });
-        // scroll to panel (snap) – optional: smooth but we only update dot
-        // we also could snap programmatically, but we keep it natural.
-        // if we want to align perfectly, we call scrollTo panel? 
-        // we'll do a light snap in the button logic.
+        // scroll to panel (snap) – optional: but we keep it natural.
       }
 
       // scroll event listener (throttled)
