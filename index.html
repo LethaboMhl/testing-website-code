@@ -20,21 +20,14 @@
       justify-content: center;
       align-items: center;
       padding: 1.5rem;
-    }
-
-    .restaurant-card {
-      max-width: 900px;
-      width: 100%;
-      background: white;
-      border-radius: 2.5rem 2.5rem 2rem 2rem;
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
       position: relative;
+      transition: background-image 0.8s ease-in-out;
     }
 
-    /* Background overlay that changes with menu */
-    .bg-overlay {
-      position: absolute;
+    /* Full page background */
+    body::before {
+      content: '';
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -43,15 +36,41 @@
       background-position: center;
       background-repeat: no-repeat;
       transition: background-image 0.8s ease-in-out;
-      z-index: 0;
-      opacity: 0.3;
-      /* Removed the ::after overlay that was blocking the images */
+      z-index: -1;
+      opacity: 0.85;
+    }
+
+    /* Dark overlay for readability */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: -1;
+    }
+
+    .restaurant-card {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 2.5rem 2.5rem 2rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .hero {
       padding: 2rem 2rem 1rem 2rem;
-      background: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(250,247,242,0.92) 100%);
-      border-bottom: 1px solid #eee9e0;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border-bottom: 1px solid rgba(238, 233, 224, 0.5);
       position: relative;
       z-index: 1;
     }
@@ -155,13 +174,13 @@
       flex: 0 0 100%;
       min-width: 100%;
       scroll-snap-align: start;
-      background: rgba(254, 252, 249, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(254, 252, 249, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       border-radius: 28px;
       padding: 1.8rem 1.8rem 2rem 1.8rem;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(241, 235, 228, 0.6);
+      border: 1px solid rgba(241, 235, 228, 0.4);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -377,11 +396,8 @@
     }
   </style>
 </head>
-<body>
+<body id="pageBody">
   <div class="restaurant-card" id="restaurantCard">
-    <!-- Background overlay that changes with menu -->
-    <div class="bg-overlay" id="bgOverlay"></div>
-
     <div class="hero">
       <div class="brand">
         <h1><i class="fas fa-utensils"></i> Oliva</h1>
@@ -399,7 +415,6 @@
       </div>
 
       <div class="menu-scroll" id="menuScroll">
-        <!-- panel 1: classic - Italian/pizza background -->
         <div class="menu-panel" data-menu="classic">
           <div class="category">
             <i class="fas fa-pizza-slice"></i>
@@ -413,7 +428,6 @@
           <div class="footnote"><i class="far fa-clock"></i> available all day</div>
         </div>
 
-        <!-- panel 2: seafood - ocean/seafood background -->
         <div class="menu-panel" data-menu="seafood">
           <div class="category">
             <i class="fas fa-fish"></i>
@@ -427,7 +441,6 @@
           <div class="footnote"><i class="fas fa-star"></i> chef's special</div>
         </div>
 
-        <!-- panel 3: pasta & risotto - pasta/Italian background -->
         <div class="menu-panel" data-menu="pasta">
           <div class="category">
             <i class="fas fa-utensil-spoon"></i>
@@ -441,7 +454,6 @@
           <div class="footnote"><i class="fas fa-leaf"></i> vegetarian options</div>
         </div>
 
-        <!-- panel 4: desserts & drinks - dessert/coffee background -->
         <div class="menu-panel" data-menu="dessert">
           <div class="category">
             <i class="fas fa-wine-glass-alt"></i>
@@ -474,28 +486,34 @@
       const dots = document.querySelectorAll('.dot');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
-      const bgOverlay = document.getElementById('bgOverlay');
+      const pageBody = document.getElementById('pageBody');
       
       const panels = scrollContainer.querySelectorAll('.menu-panel');
 
-      // Background images for each menu - using high-quality food photos
+      // Background images for each menu
       const bgImages = {
-        'classic': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80',
-        'seafood': 'https://images.unsplash.com/photo-1548946526-f69e2424cf2d?w=1200&q=80',
-        'pasta': 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=1200&q=80',
-        'dessert': 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1200&q=80'
+        'classic': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1920&q=80',
+        'seafood': 'https://images.unsplash.com/photo-1548946526-f69e2424cf2d?w=1920&q=80',
+        'pasta': 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=1920&q=80',
+        'dessert': 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1920&q=80'
       };
 
-      // Default fallback background
-      const defaultBg = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80';
+      const defaultBg = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80';
 
-      // Function to update background based on active menu
       function updateBackground(activeIndex) {
         const panel = panels[activeIndex];
         if (panel) {
           const menuType = panel.dataset.menu;
           const bgUrl = bgImages[menuType] || defaultBg;
-          bgOverlay.style.backgroundImage = `url(${bgUrl})`;
+          // Apply background to body::before using a style rule
+          pageBody.style.setProperty('--bg-image', `url(${bgUrl})`);
+          // Force the pseudo-element to update
+          pageBody.style.setProperty('background-image', `var(--bg-image)`);
+          // Use a more reliable method - update the body background directly
+          pageBody.style.backgroundImage = `url(${bgUrl})`;
+          pageBody.style.backgroundSize = 'cover';
+          pageBody.style.backgroundPosition = 'center';
+          pageBody.style.backgroundAttachment = 'fixed';
         }
       }
 
@@ -519,7 +537,6 @@
           dot.classList.toggle('active', i === activeIndex);
         });
 
-        // Update background
         updateBackground(activeIndex);
       }
 
@@ -571,16 +588,13 @@
         scrollToPanel(newIndex);
       });
 
-      // Force scroll to start at first panel
       function resetToFirst() {
         scrollContainer.scrollLeft = 0;
         updateActiveDot();
       }
 
-      // Reset on load
       window.addEventListener('load', function() {
         setTimeout(resetToFirst, 100);
-        // Set initial background
         setTimeout(() => {
           updateBackground(0);
         }, 50);
