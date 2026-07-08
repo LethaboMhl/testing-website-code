@@ -124,8 +124,8 @@
       scroll-snap-type: x mandatory;
       display: flex;
       flex-wrap: nowrap;
-      gap: 1.5rem;
-      padding: 0.5rem 0.25rem 1.5rem 0.25rem;
+      gap: 0;
+      padding: 0.5rem 0 1.5rem 0;
       /* hide scrollbar but keep functionality */
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE/Edge */
@@ -137,11 +137,9 @@
       display: none; /* Chrome/Safari */
     }
 
-    /* each menu panel — now always 1 visible at a time */
+    /* each menu panel — exactly 1 visible at a time */
     .menu-panel {
       flex: 0 0 100%;
-      max-width: 100%;
-      min-width: 0;
       scroll-snap-align: start;
       background: #fefcf9;
       border-radius: 28px;
@@ -151,6 +149,11 @@
       transition: transform 0.2s ease, box-shadow 0.2s;
       display: flex;
       flex-direction: column;
+    }
+
+    /* add some spacing between cards for visual clarity */
+    .menu-panel:not(:last-child) {
+      margin-right: 1.5rem;
     }
 
     .menu-panel:hover {
@@ -287,20 +290,29 @@
       .dot.active {
         width: 44px;
       }
+      .menu-panel:not(:last-child) {
+        margin-right: 1rem;
+      }
     }
 
-    /* desktop: keep 1 card visible, centered nicely */
+    /* desktop: still 1 card visible, but nicer width */
     @media (min-width: 601px) {
       .menu-panel {
         flex: 0 0 85%;
         max-width: 420px;
         margin: 0 auto;
       }
-      /* make scroll container center the card */
       .menu-scroll {
         justify-content: center;
-        gap: 2rem;
-        padding: 0.5rem 1rem 1.5rem 1rem;
+        gap: 0;
+        padding: 0.5rem 0 1.5rem 0;
+      }
+      .menu-panel:not(:last-child) {
+        margin-right: 2rem;
+      }
+      /* to keep snap working with centered items, we need to adjust the container */
+      .menu-scroll {
+        scroll-snap-type: x mandatory;
       }
     }
 
@@ -486,7 +498,7 @@
             panels[index].scrollIntoView({
               behavior: 'smooth',
               block: 'nearest',
-              inline: 'center'
+              inline: 'start'
             });
           }
         });
@@ -497,7 +509,7 @@
           panels[index].scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
-            inline: 'center'
+            inline: 'start'
           });
         }
       }
