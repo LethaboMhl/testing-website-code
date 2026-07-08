@@ -113,7 +113,7 @@
       box-shadow: 0 2px 6px rgba(184, 92, 58, 0.3);
     }
 
-    /* scroll container — each panel takes FULL width */
+    /* scroll container */
     .menu-scroll {
       overflow-x: auto;
       overflow-y: hidden;
@@ -122,13 +122,14 @@
       scroll-snap-type: x mandatory;
       display: flex;
       flex-wrap: nowrap;
-      /* NO gap here — panels sit side by side */
       gap: 0;
       padding: 0.5rem 0 1.5rem 0;
       scrollbar-width: none;
       -ms-overflow-style: none;
       cursor: grab;
       user-select: none;
+      /* Force scroll to start at beginning */
+      scroll-padding: 0;
     }
 
     .menu-scroll::-webkit-scrollbar {
@@ -147,11 +148,11 @@
       border: 1px solid #f1ebe4;
       display: flex;
       flex-direction: column;
-      /* add a little margin so cards don't touch */
+      /* margin to create visual separation */
       margin: 0 0.75rem;
     }
 
-    /* first and last panel need less margin to stay centered */
+    /* Remove margins on edges so first/last snap perfectly */
     .menu-panel:first-child {
       margin-left: 0;
     }
@@ -264,7 +265,6 @@
       color: #c7b7a6;
     }
 
-    /* on smaller screens, keep 1 panel */
     @media (max-width: 600px) {
       .hero {
         padding: 1.5rem 1.2rem 0.8rem 1.2rem;
@@ -301,20 +301,17 @@
       }
     }
 
-    /* desktop: still 1 panel, but with max-width for nicer look */
     @media (min-width: 601px) {
       .menu-panel {
         flex: 0 0 100%;
         max-width: 480px;
         margin: 0 auto;
       }
-      /* center the scroll container's items */
       .menu-scroll {
         justify-content: center;
         gap: 0;
         padding: 0.5rem 0 1.5rem 0;
       }
-      /* when centered, we need to handle margins differently */
       .menu-panel {
         margin: 0 0.75rem;
       }
@@ -336,7 +333,6 @@
       cursor: grabbing;
     }
 
-    /* arrow buttons */
     .scroll-nav {
       display: flex;
       justify-content: flex-end;
@@ -482,6 +478,15 @@
       
       const panels = scrollContainer.querySelectorAll('.menu-panel');
 
+      // Force scroll to start at first panel
+      function resetScrollToFirst() {
+        // Small delay to ensure layout is settled
+        setTimeout(() => {
+          scrollContainer.scrollLeft = 0;
+          updateActiveDot();
+        }, 50);
+      }
+
       function updateActiveDot() {
         const scrollLeft = scrollContainer.scrollLeft;
         const containerWidth = scrollContainer.clientWidth;
@@ -551,17 +556,27 @@
         scrollToPanel(newIndex);
       });
 
-      setTimeout(updateActiveDot, 80);
+      // Reset scroll to first panel on load
+      window.addEventListener('load', function() {
+        resetScrollToFirst();
+      });
+
+      // Also reset after any layout changes
+      setTimeout(resetScrollToFirst, 100);
 
       let resizeTimer;
       window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(updateActiveDot, 200);
+        resizeTimer = setTimeout(() => {
+          updateActiveDot();
+        }, 200);
       });
 
-      window.addEventListener('load', function() {
-        setTimeout(updateActiveDot, 150);
-      });
+      // Also ensure first panel is visible after any potential scroll
+      setTimeout(() => {
+        scrollContainer.scrollLeft = 0;
+        updateActiveDot();
+      }, 200);
     })();
   </script>
 </body>
