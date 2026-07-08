@@ -31,7 +31,6 @@
       overflow: hidden;
     }
 
-    /* header / hero */
     .hero {
       padding: 2rem 2rem 1rem 2rem;
       background: linear-gradient(145deg, #ffffff 0%, #faf7f2 100%);
@@ -81,14 +80,12 @@
       color: #b85c3a;
     }
 
-    /* slider wrapper */
     .menu-slider-wrapper {
       position: relative;
       padding: 1.5rem 2rem 2rem 2rem;
       background: #ffffff;
     }
 
-    /* navigation dots */
     .slider-indicators {
       display: flex;
       justify-content: center;
@@ -113,7 +110,6 @@
       box-shadow: 0 2px 6px rgba(184, 92, 58, 0.3);
     }
 
-    /* scroll container */
     .menu-scroll {
       overflow-x: auto;
       overflow-y: hidden;
@@ -128,15 +124,14 @@
       -ms-overflow-style: none;
       cursor: grab;
       user-select: none;
-      /* Force scroll to start at beginning */
       scroll-padding: 0;
+      /* REMOVE justify-content: center - this was the problem! */
     }
 
     .menu-scroll::-webkit-scrollbar {
       display: none;
     }
 
-    /* EACH PANEL TAKES 100% OF CONTAINER WIDTH */
     .menu-panel {
       flex: 0 0 100%;
       min-width: 100%;
@@ -148,16 +143,11 @@
       border: 1px solid #f1ebe4;
       display: flex;
       flex-direction: column;
-      /* margin to create visual separation */
-      margin: 0 0.75rem;
     }
 
-    /* Remove margins on edges so first/last snap perfectly */
-    .menu-panel:first-child {
-      margin-left: 0;
-    }
-    .menu-panel:last-child {
-      margin-right: 0;
+    /* Add padding/margin for visual separation */
+    .menu-panel:not(:last-child) {
+      margin-right: 1.5rem;
     }
 
     .menu-panel:hover {
@@ -281,7 +271,6 @@
       }
       .menu-panel {
         padding: 1.4rem;
-        margin: 0 0.5rem;
       }
       .menu-panel .category h2 {
         font-size: 1.4rem;
@@ -293,33 +282,23 @@
       .dot.active {
         width: 44px;
       }
-      .menu-panel:first-child {
-        margin-left: 0;
-      }
-      .menu-panel:last-child {
-        margin-right: 0;
+      .menu-panel:not(:last-child) {
+        margin-right: 1rem;
       }
     }
 
+    /* Desktop: still 1 panel, but with max-width and centered in the viewport */
     @media (min-width: 601px) {
+      .menu-scroll {
+        padding: 0.5rem 2rem 1.5rem 2rem;
+      }
       .menu-panel {
-        flex: 0 0 100%;
+        flex: 0 0 calc(100% - 4rem);
         max-width: 480px;
         margin: 0 auto;
       }
-      .menu-scroll {
-        justify-content: center;
-        gap: 0;
-        padding: 0.5rem 0 1.5rem 0;
-      }
-      .menu-panel {
-        margin: 0 0.75rem;
-      }
-      .menu-panel:first-child {
-        margin-left: 0;
-      }
-      .menu-panel:last-child {
-        margin-right: 0;
+      .menu-panel:not(:last-child) {
+        margin-right: 2rem;
       }
     }
 
@@ -389,7 +368,6 @@
     </div>
 
     <div class="menu-slider-wrapper">
-      <!-- indicators -->
       <div class="slider-indicators" id="dotContainer">
         <button class="dot active" data-index="0" aria-label="Menu 1"></button>
         <button class="dot" data-index="1" aria-label="Menu 2"></button>
@@ -397,7 +375,6 @@
         <button class="dot" data-index="3" aria-label="Menu 4"></button>
       </div>
 
-      <!-- scrollable menu -->
       <div class="menu-scroll" id="menuScroll">
         <!-- panel 1: classic -->
         <div class="menu-panel" data-menu="classic">
@@ -456,7 +433,6 @@
         </div>
       </div>
 
-      <!-- controls -->
       <div class="controls-row">
         <div class="drag-hint">
           <i class="fas fa-arrows-alt-h"></i> <span>slide · drag</span>
@@ -477,15 +453,6 @@
       const nextBtn = document.getElementById('nextBtn');
       
       const panels = scrollContainer.querySelectorAll('.menu-panel');
-
-      // Force scroll to start at first panel
-      function resetScrollToFirst() {
-        // Small delay to ensure layout is settled
-        setTimeout(() => {
-          scrollContainer.scrollLeft = 0;
-          updateActiveDot();
-        }, 50);
-      }
 
       function updateActiveDot() {
         const scrollLeft = scrollContainer.scrollLeft;
@@ -556,13 +523,18 @@
         scrollToPanel(newIndex);
       });
 
-      // Reset scroll to first panel on load
+      // Force scroll to start at first panel
+      function resetToFirst() {
+        scrollContainer.scrollLeft = 0;
+        updateActiveDot();
+      }
+
+      // Reset on load
       window.addEventListener('load', function() {
-        resetScrollToFirst();
+        setTimeout(resetToFirst, 100);
       });
 
-      // Also reset after any layout changes
-      setTimeout(resetScrollToFirst, 100);
+      setTimeout(resetToFirst, 50);
 
       let resizeTimer;
       window.addEventListener('resize', function() {
@@ -571,12 +543,6 @@
           updateActiveDot();
         }, 200);
       });
-
-      // Also ensure first panel is visible after any potential scroll
-      setTimeout(() => {
-        scrollContainer.scrollLeft = 0;
-        updateActiveDot();
-      }, 200);
     })();
   </script>
 </body>
