@@ -44,22 +44,13 @@
       background-repeat: no-repeat;
       transition: background-image 0.8s ease-in-out;
       z-index: 0;
-      opacity: 0.15;
-    }
-
-    .bg-overlay::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(255, 255, 255, 0.7);
+      opacity: 0.3;
+      /* Removed the ::after overlay that was blocking the images */
     }
 
     .hero {
       padding: 2rem 2rem 1rem 2rem;
-      background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(250,247,242,0.95) 100%);
+      background: linear-gradient(145deg, rgba(255,255,255,0.92) 0%, rgba(250,247,242,0.92) 100%);
       border-bottom: 1px solid #eee9e0;
       position: relative;
       z-index: 1;
@@ -164,8 +155,9 @@
       flex: 0 0 100%;
       min-width: 100%;
       scroll-snap-align: start;
-      background: rgba(254, 252, 249, 0.92);
-      backdrop-filter: blur(8px);
+      background: rgba(254, 252, 249, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-radius: 28px;
       padding: 1.8rem 1.8rem 2rem 1.8rem;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
@@ -408,7 +400,7 @@
 
       <div class="menu-scroll" id="menuScroll">
         <!-- panel 1: classic - Italian/pizza background -->
-        <div class="menu-panel" data-menu="classic" data-bg="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80">
+        <div class="menu-panel" data-menu="classic">
           <div class="category">
             <i class="fas fa-pizza-slice"></i>
             <h2>Classic</h2>
@@ -422,7 +414,7 @@
         </div>
 
         <!-- panel 2: seafood - ocean/seafood background -->
-        <div class="menu-panel" data-menu="seafood" data-bg="https://images.unsplash.com/photo-1548946526-f69e2424cf2d?w=1200&q=80">
+        <div class="menu-panel" data-menu="seafood">
           <div class="category">
             <i class="fas fa-fish"></i>
             <h2>Seafood</h2>
@@ -436,7 +428,7 @@
         </div>
 
         <!-- panel 3: pasta & risotto - pasta/Italian background -->
-        <div class="menu-panel" data-menu="pasta" data-bg="https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=1200&q=80">
+        <div class="menu-panel" data-menu="pasta">
           <div class="category">
             <i class="fas fa-utensil-spoon"></i>
             <h2>Pasta</h2>
@@ -450,7 +442,7 @@
         </div>
 
         <!-- panel 4: desserts & drinks - dessert/coffee background -->
-        <div class="menu-panel" data-menu="dessert" data-bg="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1200&q=80">
+        <div class="menu-panel" data-menu="dessert">
           <div class="category">
             <i class="fas fa-wine-glass-alt"></i>
             <h2>Dolce</h2>
@@ -486,7 +478,7 @@
       
       const panels = scrollContainer.querySelectorAll('.menu-panel');
 
-      // Background images for each menu
+      // Background images for each menu - using high-quality food photos
       const bgImages = {
         'classic': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80',
         'seafood': 'https://images.unsplash.com/photo-1548946526-f69e2424cf2d?w=1200&q=80',
