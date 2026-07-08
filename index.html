@@ -1,385 +1,554 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>South Africa Map - Interactive Provinces</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sliding Menu · Restaurant</title>
+  <!-- Font Awesome Icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-        }
+    body {
+      background: #f9f6f0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
 
-        .container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    .restaurant-card {
+      max-width: 1100px;
+      width: 100%;
+      background: white;
+      border-radius: 2.5rem 2.5rem 2rem 2rem;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
 
-        .title {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
+    /* header / hero */
+    .hero {
+      padding: 2rem 2rem 1rem 2rem;
+      background: linear-gradient(145deg, #ffffff 0%, #faf7f2 100%);
+      border-bottom: 1px solid #eee9e0;
+    }
 
-        .title span {
-            color: #ff6b35;
-            font-weight: 600;
-        }
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-        .sa-map-container {
-            position: relative;
-            display: inline-block;
-            max-width: 600px;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+    .brand h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: #2e241b;
+    }
 
-        .sa-map-container img {
-            width: 100%;
-            display: block;
-            pointer-events: none;
-        }
+    .brand h1 i {
+      color: #c0392b;
+      margin-right: 8px;
+    }
 
-        /* Shared province styles */
-        .province {
-            position: absolute;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 2;
-        }
+    .brand .tagline {
+      background: #f0ebe4;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      color: #4d3e32;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      border: 1px solid #e3d9cf;
+    }
 
-        /* North West Province */
-        .nw {
-            top: 42%;
-            left: 32%;
-            width: 18%;
-            height: 14%;
-            background: rgba(255, 107, 53, 0.4);
-            animation: pulse-orange 2s infinite;
-            border: 2px solid rgba(255, 107, 53, 0.6);
-        }
+    .hero p {
+      margin-top: 0.6rem;
+      color: #6b5d50;
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.2px;
+    }
 
-        /* Mpumalanga Province */
-        .mp {
-            top: 25%;
-            left: 67%;
-            width: 15%;
-            height: 18%;
-            background: rgba(0, 150, 255, 0.4);
-            animation: pulse-blue 2s infinite 1s;
-            border: 2px solid rgba(0, 150, 255, 0.6);
-        }
+    .hero p i {
+      margin-right: 6px;
+      color: #b85c3a;
+    }
 
-        /* Pulsing animations - different colors for each province */
-        @keyframes pulse-orange {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
-            }
-            70% {
-                transform: scale(1.15);
-                box-shadow: 0 0 0 20px rgba(255, 107, 53, 0);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
-            }
-        }
+    /* slide wrapper – the magic */
+    .menu-slider-wrapper {
+      position: relative;
+      padding: 1.5rem 2rem 2rem 2rem;
+      background: #ffffff;
+    }
 
-        @keyframes pulse-blue {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 150, 255, 0.7);
-            }
-            70% {
-                transform: scale(1.15);
-                box-shadow: 0 0 0 20px rgba(0, 150, 255, 0);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 150, 255, 0);
-            }
-        }
+    /* navigation dots / indicators (above cards) */
+    .slider-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.9rem;
+      margin-bottom: 1.8rem;
+    }
 
-        /* Hover effects - pause animation and highlight */
-        .province:hover {
-            animation-play-state: paused;
-            transform: scale(1.3) !important;
-            z-index: 10;
-            opacity: 0.9;
-            border-width: 3px;
-        }
+    .dot {
+      width: 44px;
+      height: 6px;
+      border-radius: 12px;
+      background: #d9d0c6;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
 
-        /* Active/clicked state */
-        .province.active {
-            animation-play-state: paused;
-            transform: scale(1.2);
-            border-color: gold !important;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-            z-index: 5;
-        }
+    .dot.active {
+      background: #b85c3a;
+      width: 60px;
+      box-shadow: 0 2px 6px rgba(184, 92, 58, 0.3);
+    }
 
-        /* Province labels (appear on hover) */
-        .province::after {
-            content: attr(data-name);
-            position: absolute;
-            bottom: calc(100% + 10px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: translateX(-50%) translateY(5px);
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    /* the horizontal scroll container */
+    .menu-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 2rem;
+      padding: 0.5rem 0.25rem 1.5rem 0.25rem;
+      /* hide scrollbar but keep functionality */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE/Edge */
+      cursor: grab;
+      user-select: none;
+    }
 
-        .province:hover::after {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+    .menu-scroll::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
 
-        /* Small tooltip triangle */
-        .province::before {
-            content: '';
-            position: absolute;
-            bottom: calc(100% + 5px);
-            left: 50%;
-            transform: translateX(-50%);
-            border: 6px solid transparent;
-            border-top-color: rgba(0, 0, 0, 0.85);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
+    /* each menu panel */
+    .menu-panel {
+      flex: 0 0 85%;
+      max-width: 400px;
+      min-width: 280px;
+      scroll-snap-align: start;
+      background: #fefcf9;
+      border-radius: 28px;
+      padding: 1.8rem 1.8rem 2rem 1.8rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+      border: 1px solid #f1ebe4;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .province:hover::before {
-            opacity: 1;
-        }
+    .menu-panel:hover {
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+      border-color: #e3d7cc;
+    }
 
-        /* Click feedback */
-        .province:active:not(.active) {
-            transform: scale(0.9);
-            transition: transform 0.05s;
-        }
+    .menu-panel .category {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px dashed #eee5db;
+      padding-bottom: 0.9rem;
+      margin-bottom: 1.4rem;
+    }
 
-        /* Info panel */
-        .info-panel {
-            margin-top: 20px;
-            padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
+    .menu-panel .category i {
+      font-size: 2rem;
+      color: #b85c3a;
+      width: 2.4rem;
+      text-align: center;
+    }
 
-        .info-panel p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
+    .menu-panel .category h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: #2e241b;
+      letter-spacing: -0.3px;
+    }
 
-        .info-panel .highlight {
-            color: #fff;
-            font-weight: 600;
-        }
+    .menu-panel .category span {
+      margin-left: auto;
+      background: #e7dfd6;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #4d3e32;
+    }
 
-        .info-panel .province-name {
-            color: #ff6b35;
-            font-weight: 700;
-            font-size: 18px;
-        }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid #f0e9e1;
+    }
 
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
 
-            .title {
-                font-size: 18px;
-            }
+    .item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
 
-            .province::after {
-                font-size: 10px;
-                padding: 2px 8px;
-                bottom: calc(100% + 8px);
-            }
+    .item-name {
+      font-weight: 600;
+      color: #2e241b;
+      font-size: 1.05rem;
+    }
 
-            .province:hover {
-                transform: scale(1.2) !important;
-            }
+    .item-desc {
+      font-size: 0.8rem;
+      color: #7f6f60;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
 
-            .info-panel p {
-                font-size: 12px;
-            }
-        }
+    .item-price {
+      font-weight: 600;
+      color: #b85c3a;
+      background: #f5eee8;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
 
-        /* Optional: Disable animations on reduced motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            .province {
-                animation: none !important;
-            }
+    .menu-panel .footnote {
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      color: #9b8a7a;
+      border-top: 1px solid #ede5dc;
+      padding-top: 1rem;
+      text-align: center;
+      letter-spacing: 0.2px;
+    }
 
-            .province::after {
-                transition: opacity 0.1s ease;
-            }
-        }
-    </style>
+    /* extra: drag hint */
+    .drag-hint {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      color: #b7a696;
+      font-size: 0.75rem;
+      margin-top: 0.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    .drag-hint i {
+      font-size: 0.9rem;
+      color: #c7b7a6;
+    }
+
+    /* responsive */
+    @media (max-width: 600px) {
+      .hero {
+        padding: 1.5rem 1.2rem 0.8rem 1.2rem;
+      }
+      .brand h1 {
+        font-size: 1.6rem;
+      }
+      .brand .tagline {
+        font-size: 0.7rem;
+        padding: 0.2rem 1rem;
+      }
+      .menu-slider-wrapper {
+        padding: 1rem 1rem 1.5rem 1rem;
+      }
+      .menu-panel {
+        flex: 0 0 92%;
+        min-width: 240px;
+        padding: 1.4rem;
+      }
+      .menu-panel .category h2 {
+        font-size: 1.4rem;
+      }
+      .dot {
+        width: 32px;
+        height: 5px;
+      }
+      .dot.active {
+        width: 44px;
+      }
+    }
+
+    @media (min-width: 800px) {
+      .menu-panel {
+        flex: 0 0 45%;
+        max-width: 380px;
+      }
+    }
+
+    /* small extra: active state for grab */
+    .menu-scroll:active {
+      cursor: grabbing;
+    }
+
+    /* arrow buttons (optional but nice) */
+    .scroll-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.8rem;
+      margin-top: 0.2rem;
+      padding-right: 0.5rem;
+    }
+
+    .scroll-btn {
+      background: #f5efe9;
+      border: 1px solid #e3d7cc;
+      border-radius: 40px;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4d3e32;
+      font-size: 1.1rem;
+      transition: 0.15s;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .scroll-btn:hover {
+      background: #ece2d9;
+      border-color: #cbb9aa;
+      color: #2e241b;
+    }
+
+    .scroll-btn:active {
+      background: #dccfc2;
+      transform: scale(0.94);
+    }
+
+    .scroll-btn.disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">
-            <span>🇿🇦</span> South Africa <span>Provinces</span>
-        </div>
-
-        <div class="sa-map-container">
-            <img src="Screenshot 2026-06-20 111543.png" 
-                 alt="South Africa Map">
-            
-            <!-- North West Province -->
-            <div class="province nw" data-name="North West"></div>
-            
-            <!-- Mpumalanga Province -->
-            <div class="province mp" data-name="Mpumalanga"></div>
-        </div>
-
-        <div class="info-panel" id="infoPanel">
-            <p>👆 <span class="highlight">Hover</span> over a province or <span class="highlight">click</span> to select</p>
-        </div>
+  <div class="restaurant-card">
+    <div class="hero">
+      <div class="brand">
+        <h1><i class="fas fa-utensils"></i> Oliva</h1>
+        <span class="tagline"><i class="fas fa-map-pin"></i> Mediterranean · since 1992</span>
+      </div>
+      <p><i class="fas fa-chevron-circle-right"></i> Swipe or drag to explore our menus →</p>
     </div>
 
-    <script>
-        // Get all province elements
-        const provinces = document.querySelectorAll('.province');
-        const infoPanel = document.getElementById('infoPanel');
+    <div class="menu-slider-wrapper">
+      <!-- indicators -->
+      <div class="slider-indicators" id="dotContainer">
+        <button class="dot active" data-index="0" aria-label="Menu 1"></button>
+        <button class="dot" data-index="1" aria-label="Menu 2"></button>
+        <button class="dot" data-index="2" aria-label="Menu 3"></button>
+        <button class="dot" data-index="3" aria-label="Menu 4"></button>
+      </div>
 
-        // Province data with additional info
-        const provinceData = {
-            'North West': {
-                capital: 'Mahikeng',
-                population: '3.7 million',
-                color: '#ff6b35'
-            },
-            'Mpumalanga': {
-                capital: 'Mbombela',
-                population: '4.6 million',
-                color: '#0096ff'
-            }
-        };
+      <!-- scrollable menu -->
+      <div class="menu-scroll" id="menuScroll">
+        <!-- panel 1: classic -->
+        <div class="menu-panel" data-menu="classic">
+          <div class="category">
+            <i class="fas fa-pizza-slice"></i>
+            <h2>Classic</h2>
+            <span>4 items</span>
+          </div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Margherita</span><span class="item-desc">tomato, mozzarella, basil</span></div><span class="item-price">€12</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Funghi</span><span class="item-desc">wild mushrooms, truffle oil</span></div><span class="item-price">€15</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Caprese</span><span class="item-desc">buffalo mozzarella, tomatoes</span></div><span class="item-price">€13</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Prosciutto</span><span class="item-desc">Parma ham, arugula</span></div><span class="item-price">€16</span></div>
+          <div class="footnote"><i class="far fa-clock"></i> available all day</div>
+        </div>
 
-        // Click handler for provinces
-        provinces.forEach(province => {
-            province.addEventListener('click', function(e) {
-                e.stopPropagation();
-                
-                // Remove active class from all provinces
-                provinces.forEach(p => p.classList.remove('active'));
-                
-                // Add active class to clicked province
-                this.classList.add('active');
-                
-                // Get province name
-                const name = this.dataset.name;
-                const data = provinceData[name];
-                
-                // Update info panel
-                if (data) {
-                    infoPanel.innerHTML = `
-                        <p style="text-align: center;">
-                            <span style="color: ${data.color}; font-size: 20px; font-weight: 700;">${name}</span>
-                            <br>
-                            <span style="color: rgba(255,255,255,0.6); font-size: 13px;">
-                                Capital: ${data.capital} | Population: ${data.population}
-                            </span>
-                        </p>
-                    `;
-                }
-            });
+        <!-- panel 2: seafood -->
+        <div class="menu-panel" data-menu="seafood">
+          <div class="category">
+            <i class="fas fa-fish"></i>
+            <h2>Seafood</h2>
+            <span>4 items</span>
+          </div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Grilled Octopus</span><span class="item-desc">olive oil, lemon, paprika</span></div><span class="item-price">€22</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Mussels Marinara</span><span class="item-desc">white wine, garlic, parsley</span></div><span class="item-price">€18</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Salmon Fillet</span><span class="item-desc">honey glaze, sesame</span></div><span class="item-price">€21</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Shrimp Scampi</span><span class="item-desc">butter, lemon, capers</span></div><span class="item-price">€19</span></div>
+          <div class="footnote"><i class="fas fa-star"></i> chef's special</div>
+        </div>
 
-            // Hover handler to show preview info
-            province.addEventListener('mouseenter', function() {
-                const name = this.dataset.name;
-                const data = provinceData[name];
-                
-                if (data && !this.classList.contains('active')) {
-                    infoPanel.innerHTML = `
-                        <p style="text-align: center; color: rgba(255,255,255,0.8);">
-                            <span style="color: ${data.color}; font-weight: 600;">${name}</span>
-                            <span style="color: rgba(255,255,255,0.4); margin: 0 8px;">•</span>
-                            Capital: ${data.capital}
-                            <span style="color: rgba(255,255,255,0.4); margin: 0 8px;">•</span>
-                            Population: ${data.population}
-                        </p>
-                    `;
-                }
-            });
+        <!-- panel 3: pasta & risotto -->
+        <div class="menu-panel" data-menu="pasta">
+          <div class="category">
+            <i class="fas fa-utensil-spoon"></i>
+            <h2>Pasta</h2>
+            <span>4 items</span>
+          </div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Truffle Risotto</span><span class="item-desc">parmesan, black truffle</span></div><span class="item-price">€20</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Pappardelle</span><span class="item-desc">wild boar ragu</span></div><span class="item-price">€17</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Linguine</span><span class="item-desc">pesto, green beans, potato</span></div><span class="item-price">€14</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Gnocchi</span><span class="item-desc">gorgonzola, walnuts</span></div><span class="item-price">€16</span></div>
+          <div class="footnote"><i class="fas fa-leaf"></i> vegetarian options</div>
+        </div>
 
-            // Reset info panel when mouse leaves (if not active)
-            province.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('active')) {
-                    infoPanel.innerHTML = `
-                        <p>👆 <span class="highlight">Hover</span> over a province or <span class="highlight">click</span> to select</p>
-                    `;
-                }
-            });
+        <!-- panel 4: desserts & drinks -->
+        <div class="menu-panel" data-menu="dessert">
+          <div class="category">
+            <i class="fas fa-wine-glass-alt"></i>
+            <h2>Dolce</h2>
+            <span>4 items</span>
+          </div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Tiramisu</span><span class="item-desc">mascarpone, espresso</span></div><span class="item-price">€9</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Panna Cotta</span><span class="item-desc">berry coulis</span></div><span class="item-price">€8</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Affogato</span><span class="item-desc">vanilla gelato, espresso</span></div><span class="item-price">€7</span></div>
+          <div class="menu-item"><div class="item-info"><span class="item-name">Lemon Sorbet</span><span class="item-desc">vodka, mint</span></div><span class="item-price">€6</span></div>
+          <div class="footnote"><i class="fas fa-coffee"></i> coffee & wine available</div>
+        </div>
+      </div>
+
+      <!-- navigation buttons + drag hint -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.2rem; flex-wrap: wrap; gap: 0.6rem;">
+        <div class="drag-hint">
+          <i class="fas fa-arrows-alt-h"></i> <span>slide · drag</span>
+        </div>
+        <div class="scroll-nav">
+          <button class="scroll-btn" id="prevBtn" aria-label="Previous menu"><i class="fas fa-chevron-left"></i></button>
+          <button class="scroll-btn" id="nextBtn" aria-label="Next menu"><i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const scrollContainer = document.getElementById('menuScroll');
+      const dots = document.querySelectorAll('.dot');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      // get all panels (for indicator sync)
+      const panels = scrollContainer.querySelectorAll('.menu-panel');
+
+      // helper: update active dot based on scroll position
+      function updateActiveDot() {
+        const scrollLeft = scrollContainer.scrollLeft;
+        const containerWidth = scrollContainer.clientWidth;
+        // find which panel is most visible
+        let activeIndex = 0;
+        let maxVisible = 0;
+        panels.forEach((panel, index) => {
+          const panelLeft = panel.offsetLeft - scrollContainer.offsetLeft;
+          const panelRight = panelLeft + panel.offsetWidth;
+          // how much of panel is visible
+          const visible = Math.min(panelRight, scrollLeft + containerWidth) - Math.max(panelLeft, scrollLeft);
+          if (visible > maxVisible) {
+            maxVisible = visible;
+            activeIndex = index;
+          }
         });
-
-        // Click on container to deselect
-        document.querySelector('.sa-map-container').addEventListener('click', function(e) {
-            if (e.target === this || e.target.tagName === 'IMG') {
-                provinces.forEach(p => p.classList.remove('active'));
-                infoPanel.innerHTML = `
-                    <p>👆 <span class="highlight">Hover</span> over a province or <span class="highlight">click</span> to select</p>
-                `;
-            }
+        // update dots
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === activeIndex);
         });
+        // scroll to panel (snap) – optional: smooth but we only update dot
+        // we also could snap programmatically, but we keep it natural.
+        // if we want to align perfectly, we call scrollTo panel? 
+        // we'll do a light snap in the button logic.
+      }
 
-        // Keyboard accessibility
-        provinces.forEach(province => {
-            province.setAttribute('tabindex', '0');
-            province.setAttribute('role', 'button');
-            province.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
+      // scroll event listener (throttled)
+      let scrollTimeout;
+      scrollContainer.addEventListener('scroll', function() {
+        if (scrollTimeout) cancelAnimationFrame(scrollTimeout);
+        scrollTimeout = requestAnimationFrame(() => {
+          updateActiveDot();
+        });
+      });
+
+      // click on dot -> scroll to panel
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', function() {
+          if (panels[index]) {
+            panels[index].scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'start'
             });
+          }
         });
+      });
 
-        console.log('🇿🇦 South Africa Map Interactive - Click provinces to learn more!');
-    </script>
+      // button navigation: previous / next
+      function scrollToPanel(index) {
+        if (index >= 0 && index < panels.length) {
+          panels[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'start'
+          });
+          // update dot after scroll (but scroll event will handle it)
+        }
+      }
+
+      prevBtn.addEventListener('click', function() {
+        // get current active index
+        let activeIndex = 0;
+        dots.forEach((dot, i) => {
+          if (dot.classList.contains('active')) activeIndex = i;
+        });
+        const newIndex = (activeIndex - 1 + panels.length) % panels.length;
+        scrollToPanel(newIndex);
+      });
+
+      nextBtn.addEventListener('click', function() {
+        let activeIndex = 0;
+        dots.forEach((dot, i) => {
+          if (dot.classList.contains('active')) activeIndex = i;
+        });
+        const newIndex = (activeIndex + 1) % panels.length;
+        scrollToPanel(newIndex);
+      });
+
+      // initial update
+      setTimeout(updateActiveDot, 80);
+
+      // also update on resize
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(updateActiveDot, 200);
+      });
+
+      // (optional) prevent default drag on images / text
+      scrollContainer.addEventListener('mousedown', function(e) {
+        // avoid text selection while dragging
+        if (e.target.closest('.menu-panel')) {
+          // but we want to keep default drag behaviour for scroll
+        }
+      });
+
+      // after load, set active dot again
+      window.addEventListener('load', function() {
+        setTimeout(updateActiveDot, 150);
+      });
+    })();
+  </script>
 </body>
 </html>
