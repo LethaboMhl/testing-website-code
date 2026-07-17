@@ -69,13 +69,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 0.2rem;
     }
 
     .brand-left {
       display: flex;
       flex-direction: column;
+      flex-shrink: 0;
     }
 
     .brand .logo-img {
@@ -89,6 +89,8 @@
       flex-direction: column;
       align-items: flex-end;
       gap: 0.05rem;
+      flex-shrink: 0;
+      margin-left: auto;
     }
 
     .brand .tagline {
@@ -100,11 +102,12 @@
       letter-spacing: 0.2px;
       border: 1px solid #222;
       font-family: 'Times New Roman', Georgia, serif;
+      white-space: nowrap;
     }
 
     .brand .phone {
       font-size: 0.5rem;
-      color: #000;
+      color: #000 !important;
       font-weight: 400;
       letter-spacing: 0.2px;
       padding: 0.1rem 0.6rem;
@@ -116,6 +119,11 @@
     .brand .phone i {
       color: #000;
       margin-right: 3px;
+    }
+
+    .brand .phone a {
+      color: #000 !important;
+      text-decoration: none;
     }
 
     .hero p {
@@ -428,25 +436,25 @@
         padding: 0.4rem 0.7rem 0.3rem 0.7rem;
       }
       .brand {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-wrap: nowrap;
         gap: 0.2rem;
       }
       .brand .info-right {
-        align-items: flex-start;
-        width: 100%;
+        align-items: flex-end;
+        flex-shrink: 0;
       }
       .brand .tagline {
-        font-size: 0.45rem;
-        padding: 0.1rem 0.4rem;
-        white-space: normal;
+        font-size: 0.4rem;
+        padding: 0.08rem 0.4rem;
+        white-space: nowrap;
       }
       .brand .phone {
-        font-size: 0.45rem;
-        padding: 0.1rem 0.4rem;
+        font-size: 0.4rem;
+        padding: 0.08rem 0.4rem;
+        color: #000 !important;
       }
       .brand .logo-img {
-        max-height: 35px;
+        max-height: 30px;
       }
       .menu-middle {
         padding: 0.05rem 0;
@@ -538,6 +546,21 @@
     .menu-scroll:active {
       cursor: grabbing;
     }
+
+    /* Force phone number to be black on all devices */
+    .brand .phone a,
+    .brand .phone a:visited,
+    .brand .phone a:hover,
+    .brand .phone a:active {
+      color: #000 !important;
+      text-decoration: none;
+    }
+
+    /* Override any default link colors on mobile */
+    a[href^="tel"] {
+      color: #000 !important;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -553,7 +576,7 @@
         </div>
         <div class="info-right">
           <span class="tagline"><i class="fas fa-map-pin"></i> 208 Heinrich Avenue, Akasis</span>
-          <span class="phone"><i class="fas fa-phone"></i> +27 82 123 4567</span>
+          <span class="phone"><i class="fas fa-phone"></i> <a href="tel:+27821234567">+27 82 123 4567</a></span>
         </div>
       </div>
       <p><i class="fas fa-chevron-circle-right"></i> Swipe or drag to explore our menu →</p>
