@@ -18,7 +18,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1rem;
+      padding: 0.5rem;
       background-color: #1a1a1a;
       position: relative;
     }
@@ -47,9 +47,9 @@
     }
 
     .restaurant-card {
-      max-width: 700px;
+      max-width: 520px;
       width: 100%;
-      border-radius: 1.5rem;
+      border-radius: 1.2rem;
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
       overflow: hidden;
       position: relative;
@@ -58,9 +58,9 @@
 
     /* TOP SECTION - OPAQUE */
     .hero {
-      padding: 0.8rem 1.5rem 0.5rem 1.5rem;
+      padding: 0.5rem 1rem 0.3rem 1rem;
       background: #fff;
-      border-bottom: 3px solid #222;
+      border-bottom: 2px solid #222;
       position: relative;
       z-index: 3;
     }
@@ -70,7 +70,7 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.3rem;
+      gap: 0.2rem;
     }
 
     .brand-left {
@@ -79,7 +79,7 @@
     }
 
     .brand .logo-img {
-      max-height: 60px;
+      max-height: 40px;
       width: auto;
       display: block;
     }
@@ -88,26 +88,26 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: 0.1rem;
+      gap: 0.05rem;
     }
 
     .brand .tagline {
       background: #eee;
-      padding: 0.15rem 0.8rem;
+      padding: 0.1rem 0.6rem;
       color: #000;
       font-weight: 400;
-      font-size: 0.65rem;
+      font-size: 0.5rem;
       letter-spacing: 0.2px;
       border: 1px solid #222;
       font-family: 'Times New Roman', Georgia, serif;
     }
 
     .brand .phone {
-      font-size: 0.65rem;
+      font-size: 0.5rem;
       color: #000;
       font-weight: 400;
       letter-spacing: 0.2px;
-      padding: 0.15rem 0.8rem;
+      padding: 0.1rem 0.6rem;
       background: #eee;
       border: 1px solid #222;
       font-family: 'Times New Roman', Georgia, serif;
@@ -115,20 +115,20 @@
 
     .brand .phone i {
       color: #000;
-      margin-right: 4px;
+      margin-right: 3px;
     }
 
     .hero p {
-      margin-top: 0.2rem;
+      margin-top: 0.1rem;
       color: #333;
       font-weight: 400;
-      font-size: 0.75rem;
+      font-size: 0.6rem;
       letter-spacing: 0.2px;
       font-family: 'Times New Roman', Georgia, serif;
     }
 
     .hero p i {
-      margin-right: 4px;
+      margin-right: 3px;
       color: #000;
     }
 
@@ -137,12 +137,12 @@
       background: rgba(245, 240, 235, 0.15);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      padding: 0.2rem 0;
+      padding: 0.1rem 0;
     }
 
     .menu-slider-wrapper {
       position: relative;
-      padding: 0.8rem 1rem 1rem 1rem;
+      padding: 0.5rem 0.6rem 0.6rem 0.6rem;
       background: transparent;
       z-index: 1;
     }
@@ -150,17 +150,17 @@
     .slider-indicators {
       display: flex;
       justify-content: center;
-      gap: 0.4rem;
-      margin-bottom: 0.8rem;
+      gap: 0.3rem;
+      margin-bottom: 0.5rem;
       flex-wrap: wrap;
     }
 
     .dot {
-      padding: 0.25rem 0.7rem;
-      border-radius: 16px;
+      padding: 0.15rem 0.5rem;
+      border-radius: 12px;
       background: rgba(221, 221, 221, 0.7);
       color: #333;
-      font-size: 0.6rem;
+      font-size: 0.5rem;
       font-weight: 500;
       transition: all 0.25s ease;
       cursor: pointer;
@@ -170,8 +170,8 @@
     }
 
     .dot i {
-      margin-right: 4px;
-      font-size: 0.6rem;
+      margin-right: 3px;
+      font-size: 0.5rem;
     }
 
     .dot.active {
@@ -190,7 +190,7 @@
       display: flex;
       flex-wrap: nowrap;
       gap: 0;
-      padding: 0.2rem 0 0.6rem 0;
+      padding: 0.1rem 0 0.4rem 0;
       scrollbar-width: none;
       -ms-overflow-style: none;
       cursor: grab;
@@ -209,19 +209,19 @@
       background: rgba(245, 240, 235, 0.2);
       backdrop-filter: blur(3px);
       -webkit-backdrop-filter: blur(3px);
-      border-radius: 16px;
-      padding: 1rem 1.2rem 1.2rem 1.2rem;
+      border-radius: 12px;
+      padding: 0.7rem 0.9rem 0.9rem 0.9rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       border: 2px solid rgba(34, 34, 34, 0.3);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      max-height: 60vh;
+      max-height: 55vh;
       overflow-y: auto;
     }
 
     .menu-panel::-webkit-scrollbar {
-      width: 4px;
+      width: 3px;
     }
 
     .menu-panel::-webkit-scrollbar-track {
@@ -235,7 +235,7 @@
     }
 
     .menu-panel:not(:last-child) {
-      margin-right: 1rem;
+      margin-right: 0.7rem;
     }
 
     .menu-panel:hover {
@@ -246,28 +246,28 @@
     .menu-panel .category {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       border-bottom: 2px double rgba(34, 34, 34, 0.25);
-      padding-bottom: 0.4rem;
-      margin-bottom: 0.6rem;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.4rem;
       position: sticky;
       top: 0;
       background: rgba(245, 240, 235, 0.35);
       backdrop-filter: blur(3px);
       -webkit-backdrop-filter: blur(3px);
       z-index: 5;
-      border-radius: 10px 10px 0 0;
+      border-radius: 8px 8px 0 0;
     }
 
     .menu-panel .category i {
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #000;
-      width: 1.6rem;
+      width: 1.3rem;
       text-align: center;
     }
 
     .menu-panel .category h2 {
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: #000;
       letter-spacing: -0.2px;
@@ -279,9 +279,9 @@
     .menu-panel .category span {
       margin-left: auto;
       background: rgba(221, 221, 221, 0.6);
-      padding: 0.1rem 0.6rem;
+      padding: 0.05rem 0.5rem;
       border-radius: 30px;
-      font-size: 0.55rem;
+      font-size: 0.45rem;
       font-weight: 600;
       color: #000;
       border: 1px solid rgba(102, 102, 102, 0.3);
@@ -292,9 +292,9 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 0.3rem 0;
+      padding: 0.2rem 0;
       border-bottom: 1px solid rgba(204, 204, 204, 0.25);
-      gap: 0.3rem;
+      gap: 0.2rem;
     }
 
     .menu-item:last-child {
@@ -304,20 +304,20 @@
     .item-info {
       display: flex;
       flex-direction: column;
-      gap: 0.05rem;
+      gap: 0.03rem;
       flex: 1;
     }
 
     .item-name {
       font-weight: 600;
       color: #000;
-      font-size: 0.8rem;
+      font-size: 0.65rem;
       font-family: 'Times New Roman', Georgia, serif;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.7);
     }
 
     .item-desc {
-      font-size: 0.65rem;
+      font-size: 0.5rem;
       color: #222;
       font-weight: 400;
       letter-spacing: 0.1px;
@@ -329,20 +329,20 @@
       font-weight: 700;
       color: #000;
       background: rgba(232, 228, 223, 0.6);
-      padding: 0.1rem 0.6rem;
+      padding: 0.05rem 0.5rem;
       border-radius: 30px;
-      font-size: 0.7rem;
+      font-size: 0.55rem;
       white-space: nowrap;
       border: 1px solid rgba(136, 136, 136, 0.25);
       font-family: 'Times New Roman', Georgia, serif;
     }
 
     .menu-panel .footnote {
-      margin-top: 0.6rem;
-      font-size: 0.65rem;
+      margin-top: 0.4rem;
+      font-size: 0.5rem;
       color: #222;
       border-top: 2px solid rgba(34, 34, 34, 0.2);
-      padding-top: 0.5rem;
+      padding-top: 0.3rem;
       text-align: center;
       letter-spacing: 0.1px;
       position: sticky;
@@ -350,7 +350,7 @@
       background: rgba(245, 240, 235, 0.35);
       backdrop-filter: blur(3px);
       -webkit-backdrop-filter: blur(3px);
-      border-radius: 0 0 10px 10px;
+      border-radius: 0 0 8px 8px;
       font-family: 'Times New Roman', Georgia, serif;
       font-style: italic;
       text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
@@ -360,24 +360,24 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 4px;
+      gap: 3px;
       color: #888;
-      font-size: 0.6rem;
+      font-size: 0.5rem;
       margin-top: 0.05rem;
       letter-spacing: 0.3px;
       font-family: 'Times New Roman', Georgia, serif;
     }
 
     .drag-hint i {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: #666;
     }
 
     /* BOTTOM SECTION - OPAQUE */
     .bottom-controls {
       background: #fff;
-      border-top: 3px solid #222;
-      padding: 0.5rem 1.5rem 0.8rem 1.5rem;
+      border-top: 2px solid #222;
+      padding: 0.3rem 1rem 0.5rem 1rem;
     }
 
     .controls-row {
@@ -385,26 +385,26 @@
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.3rem;
+      gap: 0.2rem;
     }
 
     .scroll-nav {
       display: flex;
       justify-content: flex-end;
-      gap: 0.4rem;
+      gap: 0.3rem;
     }
 
     .scroll-btn {
       background: #e8e4df;
       border: 2px solid #222;
       border-radius: 40px;
-      width: 30px;
-      height: 30px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #000;
-      font-size: 0.85rem;
+      font-size: 0.7rem;
       transition: 0.15s;
       cursor: pointer;
     }
@@ -422,96 +422,100 @@
 
     @media (max-width: 600px) {
       body {
-        padding: 0.5rem;
+        padding: 0.3rem;
       }
       .hero {
-        padding: 0.6rem 1rem 0.4rem 1rem;
+        padding: 0.4rem 0.7rem 0.3rem 0.7rem;
       }
       .brand {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.3rem;
+        gap: 0.2rem;
       }
       .brand .info-right {
         align-items: flex-start;
         width: 100%;
       }
       .brand .tagline {
-        font-size: 0.6rem;
-        padding: 0.15rem 0.6rem;
+        font-size: 0.45rem;
+        padding: 0.1rem 0.4rem;
         white-space: normal;
       }
       .brand .phone {
-        font-size: 0.6rem;
-        padding: 0.15rem 0.6rem;
+        font-size: 0.45rem;
+        padding: 0.1rem 0.4rem;
       }
       .brand .logo-img {
-        max-height: 45px;
+        max-height: 35px;
       }
       .menu-middle {
-        padding: 0.1rem 0;
+        padding: 0.05rem 0;
       }
       .menu-slider-wrapper {
-        padding: 0.5rem 0.5rem 0.8rem 0.5rem;
+        padding: 0.3rem 0.3rem 0.4rem 0.3rem;
       }
       .menu-panel {
-        padding: 0.7rem 0.8rem 0.9rem 0.8rem;
-        max-height: 55vh;
-        border-radius: 12px;
+        padding: 0.5rem 0.6rem 0.6rem 0.6rem;
+        max-height: 50vh;
+        border-radius: 10px;
         background: rgba(245, 240, 235, 0.25);
       }
       .menu-panel .category {
         background: rgba(245, 240, 235, 0.45);
       }
       .menu-panel .category h2 {
-        font-size: 0.95rem;
+        font-size: 0.75rem;
       }
       .menu-panel .category i {
-        font-size: 1rem;
-        width: 1.3rem;
+        font-size: 0.85rem;
+        width: 1.1rem;
       }
       .menu-panel .category span {
-        font-size: 0.5rem;
-        padding: 0.05rem 0.5rem;
+        font-size: 0.4rem;
+        padding: 0.03rem 0.35rem;
       }
       .dot {
-        padding: 0.2rem 0.5rem;
-        font-size: 0.5rem;
+        padding: 0.1rem 0.4rem;
+        font-size: 0.4rem;
       }
       .dot i {
-        font-size: 0.5rem;
-        margin-right: 3px;
+        font-size: 0.4rem;
+        margin-right: 2px;
       }
       .item-name {
-        font-size: 0.7rem;
-      }
-      .item-price {
-        font-size: 0.65rem;
-        padding: 0.05rem 0.5rem;
-      }
-      .item-desc {
         font-size: 0.55rem;
       }
+      .item-price {
+        font-size: 0.5rem;
+        padding: 0.03rem 0.35rem;
+      }
+      .item-desc {
+        font-size: 0.45rem;
+      }
       .menu-panel:not(:last-child) {
-        margin-right: 0.7rem;
+        margin-right: 0.5rem;
       }
       .scroll-btn {
-        width: 28px;
-        height: 28px;
-        font-size: 0.8rem;
+        width: 24px;
+        height: 24px;
+        font-size: 0.6rem;
       }
       .menu-panel .footnote {
         background: rgba(245, 240, 235, 0.45);
+        font-size: 0.45rem;
       }
       .bottom-controls {
-        padding: 0.4rem 1rem 0.6rem 1rem;
+        padding: 0.3rem 0.7rem 0.4rem 0.7rem;
+      }
+      .hero p {
+        font-size: 0.5rem;
       }
     }
 
     /* Force single panel on all screen sizes */
     @media (min-width: 601px) {
       .menu-scroll {
-        padding: 0.2rem 0 0.6rem 0;
+        padding: 0.1rem 0 0.4rem 0;
         justify-content: flex-start;
       }
       .menu-panel {
@@ -716,7 +720,7 @@
     <!-- BOTTOM SECTION - OPAQUE -->
     <div class="bottom-controls">
       <div class="controls-row">
-        <div style="width:30px;"></div>
+        <div style="width:26px;"></div>
         <div class="scroll-nav">
           <button class="scroll-btn" id="prevBtn" aria-label="Previous menu"><i class="fas fa-chevron-left"></i></button>
           <button class="scroll-btn" id="nextBtn" aria-label="Next menu"><i class="fas fa-chevron-right"></i></button>
