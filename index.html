@@ -49,25 +49,20 @@
     .restaurant-card {
       max-width: 700px;
       width: 100%;
-      background: rgba(245, 240, 235, 0.3);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       border-radius: 1.5rem;
       box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
       overflow: hidden;
       position: relative;
-      border: 2px solid rgba(34, 34, 34, 0.5);
       z-index: 2;
     }
 
+    /* TOP SECTION - OPAQUE */
     .hero {
       padding: 0.8rem 1.5rem 0.5rem 1.5rem;
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      border-bottom: 3px solid rgba(34, 34, 34, 0.5);
+      background: #fff;
+      border-bottom: 3px solid #222;
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
 
     .brand {
@@ -97,13 +92,13 @@
     }
 
     .brand .tagline {
-      background: rgba(238, 238, 238, 0.7);
+      background: #eee;
       padding: 0.15rem 0.8rem;
       color: #000;
       font-weight: 400;
       font-size: 0.65rem;
       letter-spacing: 0.2px;
-      border: 1px solid rgba(34, 34, 34, 0.5);
+      border: 1px solid #222;
       font-family: 'Times New Roman', Georgia, serif;
     }
 
@@ -113,8 +108,8 @@
       font-weight: 400;
       letter-spacing: 0.2px;
       padding: 0.15rem 0.8rem;
-      background: rgba(238, 238, 238, 0.7);
-      border: 1px solid rgba(34, 34, 34, 0.5);
+      background: #eee;
+      border: 1px solid #222;
       font-family: 'Times New Roman', Georgia, serif;
     }
 
@@ -125,17 +120,24 @@
 
     .hero p {
       margin-top: 0.2rem;
-      color: #222;
+      color: #333;
       font-weight: 400;
       font-size: 0.75rem;
       letter-spacing: 0.2px;
       font-family: 'Times New Roman', Georgia, serif;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.3);
     }
 
     .hero p i {
       margin-right: 4px;
       color: #000;
+    }
+
+    /* MIDDLE SECTION - TRANSPARENT */
+    .menu-middle {
+      background: rgba(245, 240, 235, 0.15);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 0.2rem 0;
     }
 
     .menu-slider-wrapper {
@@ -204,13 +206,13 @@
       flex: 0 0 100%;
       min-width: 100%;
       scroll-snap-align: start;
-      background: rgba(245, 240, 235, 0.35);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(245, 240, 235, 0.2);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
       border-radius: 16px;
       padding: 1rem 1.2rem 1.2rem 1.2rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      border: 2px solid rgba(34, 34, 34, 0.4);
+      border: 2px solid rgba(34, 34, 34, 0.3);
       display: flex;
       flex-direction: column;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -245,14 +247,14 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      border-bottom: 2px double rgba(34, 34, 34, 0.3);
+      border-bottom: 2px double rgba(34, 34, 34, 0.25);
       padding-bottom: 0.4rem;
       margin-bottom: 0.6rem;
       position: sticky;
       top: 0;
-      background: rgba(245, 240, 235, 0.5);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(245, 240, 235, 0.35);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
       z-index: 5;
       border-radius: 10px 10px 0 0;
     }
@@ -271,7 +273,7 @@
       letter-spacing: -0.2px;
       font-family: 'Times New Roman', Georgia, serif;
       text-transform: uppercase;
-      text-shadow: 0 1px 3px rgba(255,255,255,0.4);
+      text-shadow: 0 1px 3px rgba(255,255,255,0.5);
     }
 
     .menu-panel .category span {
@@ -282,7 +284,7 @@
       font-size: 0.55rem;
       font-weight: 600;
       color: #000;
-      border: 1px solid rgba(102, 102, 102, 0.4);
+      border: 1px solid rgba(102, 102, 102, 0.3);
       font-family: 'Times New Roman', Georgia, serif;
     }
 
@@ -291,7 +293,7 @@
       justify-content: space-between;
       align-items: baseline;
       padding: 0.3rem 0;
-      border-bottom: 1px solid rgba(204, 204, 204, 0.3);
+      border-bottom: 1px solid rgba(204, 204, 204, 0.25);
       gap: 0.3rem;
     }
 
@@ -311,7 +313,7 @@
       color: #000;
       font-size: 0.8rem;
       font-family: 'Times New Roman', Georgia, serif;
-      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.7);
     }
 
     .item-desc {
@@ -320,7 +322,7 @@
       font-weight: 400;
       letter-spacing: 0.1px;
       font-family: 'Times New Roman', Georgia, serif;
-      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.7);
     }
 
     .item-price {
@@ -331,7 +333,7 @@
       border-radius: 30px;
       font-size: 0.7rem;
       white-space: nowrap;
-      border: 1px solid rgba(136, 136, 136, 0.3);
+      border: 1px solid rgba(136, 136, 136, 0.25);
       font-family: 'Times New Roman', Georgia, serif;
     }
 
@@ -339,19 +341,19 @@
       margin-top: 0.6rem;
       font-size: 0.65rem;
       color: #222;
-      border-top: 2px solid rgba(34, 34, 34, 0.25);
+      border-top: 2px solid rgba(34, 34, 34, 0.2);
       padding-top: 0.5rem;
       text-align: center;
       letter-spacing: 0.1px;
       position: sticky;
       bottom: 0;
-      background: rgba(245, 240, 235, 0.5);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(245, 240, 235, 0.35);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
       border-radius: 0 0 10px 10px;
       font-family: 'Times New Roman', Georgia, serif;
       font-style: italic;
-      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.4);
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
     }
 
     .drag-hint {
@@ -359,17 +361,63 @@
       justify-content: center;
       align-items: center;
       gap: 4px;
-      color: rgba(136, 136, 136, 0.7);
+      color: #888;
       font-size: 0.6rem;
       margin-top: 0.05rem;
       letter-spacing: 0.3px;
       font-family: 'Times New Roman', Georgia, serif;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.3);
     }
 
     .drag-hint i {
       font-size: 0.7rem;
-      color: rgba(102, 102, 102, 0.6);
+      color: #666;
+    }
+
+    /* BOTTOM SECTION - OPAQUE */
+    .bottom-controls {
+      background: #fff;
+      border-top: 3px solid #222;
+      padding: 0.5rem 1.5rem 0.8rem 1.5rem;
+    }
+
+    .controls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .scroll-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.4rem;
+    }
+
+    .scroll-btn {
+      background: #e8e4df;
+      border: 2px solid #222;
+      border-radius: 40px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 0.85rem;
+      transition: 0.15s;
+      cursor: pointer;
+    }
+
+    .scroll-btn:hover {
+      background: #d5cfc8;
+      border-color: #000;
+      color: #000;
+    }
+
+    .scroll-btn:active {
+      background: #c0b8af;
+      transform: scale(0.94);
     }
 
     @media (max-width: 600px) {
@@ -378,7 +426,6 @@
       }
       .hero {
         padding: 0.6rem 1rem 0.4rem 1rem;
-        background: rgba(255, 255, 255, 0.7);
       }
       .brand {
         flex-direction: column;
@@ -401,6 +448,9 @@
       .brand .logo-img {
         max-height: 45px;
       }
+      .menu-middle {
+        padding: 0.1rem 0;
+      }
       .menu-slider-wrapper {
         padding: 0.5rem 0.5rem 0.8rem 0.5rem;
       }
@@ -408,10 +458,10 @@
         padding: 0.7rem 0.8rem 0.9rem 0.8rem;
         max-height: 55vh;
         border-radius: 12px;
-        background: rgba(245, 240, 235, 0.4);
+        background: rgba(245, 240, 235, 0.25);
       }
       .menu-panel .category {
-        background: rgba(245, 240, 235, 0.6);
+        background: rgba(245, 240, 235, 0.45);
       }
       .menu-panel .category h2 {
         font-size: 0.95rem;
@@ -451,7 +501,10 @@
         font-size: 0.8rem;
       }
       .menu-panel .footnote {
-        background: rgba(245, 240, 235, 0.6);
+        background: rgba(245, 240, 235, 0.45);
+      }
+      .bottom-controls {
+        padding: 0.4rem 1rem 0.6rem 1rem;
       }
     }
 
@@ -465,64 +518,21 @@
         flex: 0 0 100%;
         max-width: 100%;
         margin: 0;
-        background: rgba(245, 240, 235, 0.35);
+        background: rgba(245, 240, 235, 0.2);
       }
       .menu-panel:not(:last-child) {
         margin-right: 0;
       }
       .menu-panel .category {
-        background: rgba(245, 240, 235, 0.5);
+        background: rgba(245, 240, 235, 0.35);
       }
       .menu-panel .footnote {
-        background: rgba(245, 240, 235, 0.5);
+        background: rgba(245, 240, 235, 0.35);
       }
     }
 
     .menu-scroll:active {
       cursor: grabbing;
-    }
-
-    .scroll-nav {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.4rem;
-      margin-top: 0.05rem;
-      padding-right: 0.2rem;
-    }
-
-    .scroll-btn {
-      background: rgba(232, 228, 223, 0.7);
-      border: 2px solid rgba(34, 34, 34, 0.5);
-      border-radius: 40px;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000;
-      font-size: 0.85rem;
-      transition: 0.15s;
-      cursor: pointer;
-    }
-
-    .scroll-btn:hover {
-      background: rgba(213, 207, 200, 0.8);
-      border-color: rgba(0, 0, 0, 0.7);
-      color: #000;
-    }
-
-    .scroll-btn:active {
-      background: rgba(192, 184, 175, 0.7);
-      transform: scale(0.94);
-    }
-
-    .controls-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.05rem;
-      flex-wrap: wrap;
-      gap: 0.3rem;
     }
   </style>
 </head>
@@ -531,10 +541,10 @@
   <div id="bgOverlay"></div>
 
   <div class="restaurant-card" id="restaurantCard">
+    <!-- TOP SECTION - OPAQUE -->
     <div class="hero">
       <div class="brand">
         <div class="brand-left">
-          <!-- Logo Image -->
           <img src="chic-a-beef-kitchen-logo-final.png" alt="Chic-A-Beef Kitchen" class="logo-img">
         </div>
         <div class="info-right">
@@ -545,160 +555,168 @@
       <p><i class="fas fa-chevron-circle-right"></i> Swipe or drag to explore our menu →</p>
     </div>
 
-    <div class="menu-slider-wrapper">
-      <div class="slider-indicators" id="dotContainer">
-        <button class="dot active" data-index="0"><i class="fas fa-french-fries"></i> Snacks</button>
-        <button class="dot" data-index="1"><i class="fas fa-fish"></i> Fish</button>
-        <button class="dot" data-index="2"><i class="fas fa-drumstick-bite"></i> Ribs</button>
-        <button class="dot" data-index="3"><i class="fas fa-utensil-spoon"></i> Combos</button>
-        <button class="dot" data-index="4"><i class="fas fa-hamburger"></i> Burgers</button>
-        <button class="dot" data-index="5"><i class="fas fa-bread-slice"></i> Sandwiches</button>
-      </div>
-
-      <div class="menu-scroll" id="menuScroll">
-        <!-- CHIPS & SNACKS -->
-        <div class="menu-panel" data-menu="snacks">
-          <div class="category">
-            <i class="fas fa-french-fries"></i>
-            <h2>Chips & Snacks</h2>
-            <span>12</span>
-          </div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Mini Chips</span></div><span class="item-price">R 35.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Mini Chips Peri Peri</span></div><span class="item-price">R 39.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Small Chips</span></div><span class="item-price">R 44.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Small Peri Peri</span></div><span class="item-price">R 49.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Medium Chips</span></div><span class="item-price">R 90.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Medium Peri Peri/BBQ</span></div><span class="item-price">R 99.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Jumbo Chips</span></div><span class="item-price">R 120.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Jumbo Peri Peri/BBQ</span></div><span class="item-price">R 129.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Vicunas</span></div><span class="item-price">R 17.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Footlong Vienna</span></div><span class="item-price">R 29.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Russian</span></div><span class="item-price">R 27.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Long Cheese Russian</span></div><span class="item-price">R 29.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Frankfurter</span></div><span class="item-price">R 29.90</span></div>
-          <div class="footnote"><i class="fas fa-tag"></i> All snacks served fresh</div>
+    <!-- MIDDLE SECTION - TRANSPARENT -->
+    <div class="menu-middle">
+      <div class="menu-slider-wrapper">
+        <div class="slider-indicators" id="dotContainer">
+          <button class="dot active" data-index="0"><i class="fas fa-french-fries"></i> Snacks</button>
+          <button class="dot" data-index="1"><i class="fas fa-fish"></i> Fish</button>
+          <button class="dot" data-index="2"><i class="fas fa-drumstick-bite"></i> Ribs</button>
+          <button class="dot" data-index="3"><i class="fas fa-utensil-spoon"></i> Combos</button>
+          <button class="dot" data-index="4"><i class="fas fa-hamburger"></i> Burgers</button>
+          <button class="dot" data-index="5"><i class="fas fa-bread-slice"></i> Sandwiches</button>
         </div>
 
-        <!-- FISH -->
-        <div class="menu-panel" data-menu="fish">
-          <div class="category">
-            <i class="fas fa-fish"></i>
-            <h2>Fish</h2>
-            <span>6</span>
+        <div class="menu-scroll" id="menuScroll">
+          <!-- CHIPS & SNACKS -->
+          <div class="menu-panel" data-menu="snacks">
+            <div class="category">
+              <i class="fas fa-french-fries"></i>
+              <h2>Chips & Snacks</h2>
+              <span>12</span>
+            </div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Mini Chips</span></div><span class="item-price">R 35.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Mini Chips Peri Peri</span></div><span class="item-price">R 39.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Small Chips</span></div><span class="item-price">R 44.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Small Peri Peri</span></div><span class="item-price">R 49.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Medium Chips</span></div><span class="item-price">R 90.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Medium Peri Peri/BBQ</span></div><span class="item-price">R 99.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Jumbo Chips</span></div><span class="item-price">R 120.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Jumbo Peri Peri/BBQ</span></div><span class="item-price">R 129.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Vicunas</span></div><span class="item-price">R 17.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Footlong Vienna</span></div><span class="item-price">R 29.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Russian</span></div><span class="item-price">R 27.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Long Cheese Russian</span></div><span class="item-price">R 29.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Frankfurter</span></div><span class="item-price">R 29.90</span></div>
+            <div class="footnote"><i class="fas fa-tag"></i> All snacks served fresh</div>
           </div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Fish</span></div><span class="item-price">R 69.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">1x Fish & Small Chips</span></div><span class="item-price">R 113.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">3x Fish & Medium Chips</span></div><span class="item-price">R 299.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">4x Fish & Jumbo Chips</span></div><span class="item-price">R 399.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Russian Dog & Chips</span></div><span class="item-price">R 59.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Hotdog & Chips</span></div><span class="item-price">R 49.90</span></div>
-          <div class="footnote"><i class="fas fa-star"></i> Freshly prepared to order</div>
+
+          <!-- FISH -->
+          <div class="menu-panel" data-menu="fish">
+            <div class="category">
+              <i class="fas fa-fish"></i>
+              <h2>Fish</h2>
+              <span>6</span>
+            </div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Fish</span></div><span class="item-price">R 69.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">1x Fish & Small Chips</span></div><span class="item-price">R 113.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">3x Fish & Medium Chips</span></div><span class="item-price">R 299.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">4x Fish & Jumbo Chips</span></div><span class="item-price">R 399.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Russian Dog & Chips</span></div><span class="item-price">R 59.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Hotdog & Chips</span></div><span class="item-price">R 49.90</span></div>
+            <div class="footnote"><i class="fas fa-star"></i> Freshly prepared to order</div>
+          </div>
+
+          <!-- RIBS & CHICKEN -->
+          <div class="menu-panel" data-menu="ribs">
+            <div class="category">
+              <i class="fas fa-drumstick-bite"></i>
+              <h2>Ribs & Chicken</h2>
+              <span>8</span>
+            </div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Full Ribs & Chips</span></div><span class="item-price">R 259.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Full Ribs (no Chips)</span></div><span class="item-price">R 240.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Half Ribs & Chips</span></div><span class="item-price">R 185.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Half Ribs (no Chips)</span></div><span class="item-price">R 165.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Full Chicken (no Chips)</span></div><span class="item-price">R 169.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Half Chicken & Chips</span></div><span class="item-price">R 110.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Half Chicken (no Chips)</span></div><span class="item-price">R 89.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name" style="color:#000; font-weight:700;">Rib Flavours</span><span class="item-desc">Lemon & Herb · Mix Masala · Peri-Peri · BBQ</span></div><span class="item-price"></span></div>
+            <div class="footnote"><i class="fas fa-fire"></i> Choose your flavour</div>
+          </div>
+
+          <!-- COMBO DEALS -->
+          <div class="menu-panel" data-menu="combos">
+            <div class="category">
+              <i class="fas fa-utensil-spoon"></i>
+              <h2>Combo Deals</h2>
+              <span>4</span>
+            </div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Combo 1</span><span class="item-desc">Full Chicken + Full Ribs + Med Chips + ANY 2L Coldrink + 6 Fresh Bread rolls</span></div><span class="item-price">R 489.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Combo 2</span><span class="item-desc">4 Fish + 4 Russians + Jumbo Chips + ANY 2L Coldrink</span></div><span class="item-price">R 490.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Combo 3</span><span class="item-desc">3 Fish + Med Chips + 6 Fresh Bread rolls + ANY 2L Coldrink</span></div><span class="item-price">R 309.00</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Combo 4 (Half Combo)</span><span class="item-desc">Half Chicken + Half Ribs + Med Chips + ANY 2L Coldrink</span></div><span class="item-price">R 339.00</span></div>
+            <div class="footnote"><i class="fas fa-gift"></i> Best value deals!</div>
+          </div>
+
+          <!-- BURGERS -->
+          <div class="menu-panel" data-menu="burgers">
+            <div class="category">
+              <i class="fas fa-hamburger"></i>
+              <h2>Burgers</h2>
+              <span>26</span>
+            </div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Beef Burger</span></div><span class="item-price">R 53.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Cheese Burger</span></div><span class="item-price">R 57.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Egg Burger</span></div><span class="item-price">R 61.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Hawaiian Burger</span></div><span class="item-price">R 64.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Pineapple</span></div><span class="item-price">R 69.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Double Bacon & Cheese</span></div><span class="item-price">R 61.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Steak Burger</span></div><span class="item-price">R 64.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Pepper Burger</span></div><span class="item-price">R 64.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Steak & Cheese Burger</span></div><span class="item-price">R 64.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Pepper Steak</span></div><span class="item-price">R 62.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Peri-Peri</span></div><span class="item-price">R 62.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Double Bacon, Egg & Cheese</span></div><span class="item-price">R 84.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Monkey Island</span></div><span class="item-price">R 58.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Mushroom Burger</span></div><span class="item-price">R 57.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Peri-Peri Cheese Burger</span></div><span class="item-price">R 57.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Garlic Burger</span></div><span class="item-price">R 59.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Chicken Burger</span></div><span class="item-price">R 61.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Double Burger</span></div><span class="item-price">R 64.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Double Cheese Burger</span></div><span class="item-price">R 68.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon Burger</span></div><span class="item-price">R 61.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Egg & Cheese</span></div><span class="item-price">R 67.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Double Decker Burger</span></div><span class="item-price">R 75.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Steak, Egg & Cheese</span></div><span class="item-price">R 67.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Pineapple & Cheese</span></div><span class="item-price">R 61.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Cheese Burger</span></div><span class="item-price">R 64.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">DBL Chicken Burger</span></div><span class="item-price">R 68.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">His & Hers Combo</span></div><span class="item-price">R 49.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Rib Burger</span></div><span class="item-price">R 49.90</span></div>
+            <div class="footnote"><i class="fas fa-utensils"></i> Served with chips</div>
+          </div>
+
+          <!-- FRIED SANDWICHES -->
+          <div class="menu-panel" data-menu="sandwiches">
+            <div class="category">
+              <i class="fas fa-bread-slice"></i>
+              <h2>Fried Sandwiches</h2>
+              <span>11</span>
+            </div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Cheese Sandwich</span></div><span class="item-price">R 53.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Cheese & Tomato</span></div><span class="item-price">R 27.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Cheese & Tomato (with Chips)</span></div><span class="item-price">R 56.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Ham & Cheese</span></div><span class="item-price">R 31.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Ham & Cheese (with Chips)</span></div><span class="item-price">R 60.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Ham, Cheese & Tomato</span></div><span class="item-price">R 33.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Ham, Cheese & Tomato (w/ Chips)</span></div><span class="item-price">R 63.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Egg</span></div><span class="item-price">R 36.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Egg (with Chips)</span></div><span class="item-price">R 65.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Cheese</span></div><span class="item-price">R 36.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Cheese (with Chips)</span></div><span class="item-price">R 65.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Egg & Cheese</span></div><span class="item-price">R 39.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Egg & Cheese (w/ Chips)</span></div><span class="item-price">R 68.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Cheese & Tomato</span></div><span class="item-price">R 38.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Cheese & Tomato (w/ Chips)</span></div><span class="item-price">R 67.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Banana</span></div><span class="item-price">R 31.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Banana (with Chips)</span></div><span class="item-price">R 56.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Mayonnaise</span></div><span class="item-price">R 31.90</span></div>
+            <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Mayonnaise (w/ Chips)</span></div><span class="item-price">R 80.90</span></div>
+            <div class="footnote"><i class="fas fa-hotdog"></i> All sandwiches are fried to golden perfection</div>
+          </div>
         </div>
 
-        <!-- RIBS & CHICKEN -->
-        <div class="menu-panel" data-menu="ribs">
-          <div class="category">
-            <i class="fas fa-drumstick-bite"></i>
-            <h2>Ribs & Chicken</h2>
-            <span>8</span>
-          </div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Full Ribs & Chips</span></div><span class="item-price">R 259.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Full Ribs (no Chips)</span></div><span class="item-price">R 240.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Half Ribs & Chips</span></div><span class="item-price">R 185.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Half Ribs (no Chips)</span></div><span class="item-price">R 165.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Full Chicken (no Chips)</span></div><span class="item-price">R 169.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Half Chicken & Chips</span></div><span class="item-price">R 110.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Half Chicken (no Chips)</span></div><span class="item-price">R 89.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name" style="color:#000; font-weight:700;">Rib Flavours</span><span class="item-desc">Lemon & Herb · Mix Masala · Peri-Peri · BBQ</span></div><span class="item-price"></span></div>
-          <div class="footnote"><i class="fas fa-fire"></i> Choose your flavour</div>
-        </div>
-
-        <!-- COMBO DEALS -->
-        <div class="menu-panel" data-menu="combos">
-          <div class="category">
-            <i class="fas fa-utensil-spoon"></i>
-            <h2>Combo Deals</h2>
-            <span>4</span>
-          </div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Combo 1</span><span class="item-desc">Full Chicken + Full Ribs + Med Chips + ANY 2L Coldrink + 6 Fresh Bread rolls</span></div><span class="item-price">R 489.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Combo 2</span><span class="item-desc">4 Fish + 4 Russians + Jumbo Chips + ANY 2L Coldrink</span></div><span class="item-price">R 490.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Combo 3</span><span class="item-desc">3 Fish + Med Chips + 6 Fresh Bread rolls + ANY 2L Coldrink</span></div><span class="item-price">R 309.00</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Combo 4 (Half Combo)</span><span class="item-desc">Half Chicken + Half Ribs + Med Chips + ANY 2L Coldrink</span></div><span class="item-price">R 339.00</span></div>
-          <div class="footnote"><i class="fas fa-gift"></i> Best value deals!</div>
-        </div>
-
-        <!-- BURGERS -->
-        <div class="menu-panel" data-menu="burgers">
-          <div class="category">
-            <i class="fas fa-hamburger"></i>
-            <h2>Burgers</h2>
-            <span>26</span>
-          </div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Beef Burger</span></div><span class="item-price">R 53.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Cheese Burger</span></div><span class="item-price">R 57.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Egg Burger</span></div><span class="item-price">R 61.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Hawaiian Burger</span></div><span class="item-price">R 64.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Pineapple</span></div><span class="item-price">R 69.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Double Bacon & Cheese</span></div><span class="item-price">R 61.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Steak Burger</span></div><span class="item-price">R 64.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Pepper Burger</span></div><span class="item-price">R 64.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Steak & Cheese Burger</span></div><span class="item-price">R 64.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Pepper Steak</span></div><span class="item-price">R 62.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Peri-Peri</span></div><span class="item-price">R 62.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Double Bacon, Egg & Cheese</span></div><span class="item-price">R 84.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Monkey Island</span></div><span class="item-price">R 58.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Mushroom Burger</span></div><span class="item-price">R 57.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Peri-Peri Cheese Burger</span></div><span class="item-price">R 57.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Garlic Burger</span></div><span class="item-price">R 59.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Chicken Burger</span></div><span class="item-price">R 61.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Double Burger</span></div><span class="item-price">R 64.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Double Cheese Burger</span></div><span class="item-price">R 68.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon Burger</span></div><span class="item-price">R 61.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Egg & Cheese</span></div><span class="item-price">R 67.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Double Decker Burger</span></div><span class="item-price">R 75.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Steak, Egg & Cheese</span></div><span class="item-price">R 67.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Pineapple & Cheese</span></div><span class="item-price">R 61.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Cheese Burger</span></div><span class="item-price">R 64.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">DBL Chicken Burger</span></div><span class="item-price">R 68.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">His & Hers Combo</span></div><span class="item-price">R 49.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Rib Burger</span></div><span class="item-price">R 49.90</span></div>
-          <div class="footnote"><i class="fas fa-utensils"></i> Served with chips</div>
-        </div>
-
-        <!-- FRIED SANDWICHES -->
-        <div class="menu-panel" data-menu="sandwiches">
-          <div class="category">
-            <i class="fas fa-bread-slice"></i>
-            <h2>Fried Sandwiches</h2>
-            <span>11</span>
-          </div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Cheese Sandwich</span></div><span class="item-price">R 53.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Cheese & Tomato</span></div><span class="item-price">R 27.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Cheese & Tomato (with Chips)</span></div><span class="item-price">R 56.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Ham & Cheese</span></div><span class="item-price">R 31.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Ham & Cheese (with Chips)</span></div><span class="item-price">R 60.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Ham, Cheese & Tomato</span></div><span class="item-price">R 33.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Ham, Cheese & Tomato (w/ Chips)</span></div><span class="item-price">R 63.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Egg</span></div><span class="item-price">R 36.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Egg (with Chips)</span></div><span class="item-price">R 65.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Cheese</span></div><span class="item-price">R 36.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Cheese (with Chips)</span></div><span class="item-price">R 65.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Egg & Cheese</span></div><span class="item-price">R 39.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Egg & Cheese (w/ Chips)</span></div><span class="item-price">R 68.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Cheese & Tomato</span></div><span class="item-price">R 38.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon, Cheese & Tomato (w/ Chips)</span></div><span class="item-price">R 67.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Banana</span></div><span class="item-price">R 31.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Bacon & Banana (with Chips)</span></div><span class="item-price">R 56.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Mayonnaise</span></div><span class="item-price">R 31.90</span></div>
-          <div class="menu-item"><div class="item-info"><span class="item-name">Chicken & Mayonnaise (w/ Chips)</span></div><span class="item-price">R 80.90</span></div>
-          <div class="footnote"><i class="fas fa-hotdog"></i> All sandwiches are fried to golden perfection</div>
-        </div>
-      </div>
-
-      <div class="controls-row">
         <div class="drag-hint">
           <i class="fas fa-arrows-alt-h"></i> <span>slide · drag</span>
         </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM SECTION - OPAQUE -->
+    <div class="bottom-controls">
+      <div class="controls-row">
+        <div style="width:30px;"></div>
         <div class="scroll-nav">
           <button class="scroll-btn" id="prevBtn" aria-label="Previous menu"><i class="fas fa-chevron-left"></i></button>
           <button class="scroll-btn" id="nextBtn" aria-label="Next menu"><i class="fas fa-chevron-right"></i></button>
